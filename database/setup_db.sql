@@ -28,7 +28,6 @@ CREATE TABLE train
     start_station INT NOT NULL,
     end_station   INT NOT NULL,
     days          MEDIUMINT NOT NULL, /* mtwhfsu, eg: 1001010 -> mon, th, sat*/
-    time          TIME NOT NULL,
 
     FOREIGN KEY (start_station) REFERENCES station(id),
     FOREIGN KEY (end_station)   REFERENCES station(id)
@@ -97,6 +96,9 @@ CREATE TABLE trip
 
 
 
+
+
+
 INSERT INTO station (name, accessibility_code) VALUES ('Boston, MA - South
     Station', 2);
 INSERT INTO station (name, accessibility_code) VALUES ('Boston, MA - Back
@@ -138,3 +140,55 @@ INSERT INTO station (name, accessibility_code) VALUES ('New Carrollton,
     MD', 3);
 INSERT INTO station (name, accessibility_code) VALUES ('Washington, DC -
     Union Station', 10);
+
+
+
+
+INSERT INTO segment (start_station, end_station, distance, base_fare)
+VALUES (1, 2, 146, 56);
+INSERT INTO segment (start_station, end_station, distance, base_fare)
+VALUES (2, 3, 261, 45);
+INSERT INTO segment (start_station, end_station, distance, base_fare)
+VALUES (3, 4, 440, 58);
+INSERT INTO segment (start_station, end_station, distance, base_fare)
+VALUES (4, 5, 426, 19);
+INSERT INTO segment (start_station, end_station, distance, base_fare)
+VALUES (5, 6, 264, 27);
+INSERT INTO segment (start_station, end_station, distance, base_fare)
+VALUES (6, 7, 41, 20);
+INSERT INTO segment (start_station, end_station, distance, base_fare)
+VALUES (7, 8, 363, 57);
+INSERT INTO segment (start_station, end_station, distance, base_fare)
+VALUES (8, 9, 412, 54);
+INSERT INTO segment (start_station, end_station, distance, base_fare)
+VALUES (9, 10, 240, 13);
+INSERT INTO segment (start_station, end_station, distance, base_fare)
+VALUES (10, 11, 411, 59);
+INSERT INTO segment (start_station, end_station, distance, base_fare)
+VALUES (11, 12, 69, 42);
+INSERT INTO segment (start_station, end_station, distance, base_fare)
+VALUES (12, 13, 480, 31);
+INSERT INTO segment (start_station, end_station, distance, base_fare)
+VALUES (13, 14, 140, 24);
+INSERT INTO segment (start_station, end_station, distance, base_fare)
+VALUES (14, 15, 115, 57);
+INSERT INTO segment (start_station, end_station, distance, base_fare)
+VALUES (15, 16, 51, 18);
+INSERT INTO segment (start_station, end_station, distance, base_fare)
+VALUES (16, 17, 461, 43);
+INSERT INTO segment (start_station, end_station, distance, base_fare)
+VALUES (17, 18, 24, 60);
+INSERT INTO segment (start_station, end_station, distance, base_fare)
+VALUES (18, 19, 255, 14);
+INSERT INTO segment (start_station, end_station, distance, base_fare)
+VALUES (19, 20, 460, 11);
+INSERT INTO segment (start_station, end_station, distance, base_fare)
+VALUES (20, 21, 332, 42);
+INSERT INTO segment (start_station, end_station, distance, base_fare)
+VALUES (21, 22, 416, 55);
+INSERT INTO segment (start_station, end_station, distance, base_fare)
+VALUES (22, 23, 437, 37);
+INSERT INTO segment (start_station, end_station, distance, base_fare)
+VALUES (23, 24, 62, 15);
+INSERT INTO segment (start_station, end_station, distance, base_fare)
+VALUES (24, 25, 129, 29);
