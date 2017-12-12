@@ -1,9 +1,11 @@
+DROP DATABASE `F17336Gteam8`;
+CREATE DATABASE `F17336Gteam8`;
+USE `F17336Gteam8`;
+
 CREATE TABLE station
 (
     id                 INT AUTO_INCREMENT PRIMARY KEY,
     name               TEXT NOT NULL,
-    open_hour          TINYINT NOT NULL,
-    close_hour         TINYINT NOT NULL,
     accessibility_code TINYINT NOT NULL
 );
 
