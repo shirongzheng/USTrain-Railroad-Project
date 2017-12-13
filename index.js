@@ -45,7 +45,7 @@ app.use(require('body-parser').json()); // For parsing application/json content 
 
 // Start server on port 9001 on localhost or on PORT variable from
 // custom environmental config
-const server = app.listen('9001' || process.env.PORT, () =>
+const server = app.listen(process.env.PORT || '9001', () =>
 {
     console.log('Express server started listening on', server.address());
 });
