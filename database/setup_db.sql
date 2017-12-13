@@ -99,47 +99,31 @@ CREATE TABLE trip
 
 
 
-INSERT INTO station (name, accessibility_code) VALUES ('Boston, MA - South
-    Station', 2);
-INSERT INTO station (name, accessibility_code) VALUES ('Boston, MA - Back
-    Bay Station', 7);
+INSERT INTO station (name, accessibility_code) VALUES ('Boston, MA - South Station', 2);
+INSERT INTO station (name, accessibility_code) VALUES ('Boston, MA - Back Bay Station', 7);
 INSERT INTO station (name, accessibility_code) VALUES ('Route 128, MA', 9);
-INSERT INTO station (name, accessibility_code) VALUES ('Providence, RI',
-    10);
+INSERT INTO station (name, accessibility_code) VALUES ('Providence, RI', 10);
 INSERT INTO station (name, accessibility_code) VALUES ('Kingston, RI', 4);
 INSERT INTO station (name, accessibility_code) VALUES ('Westerly,RI', 2);
 INSERT INTO station (name, accessibility_code) VALUES ('Mystic, CT', 5);
-INSERT INTO station (name, accessibility_code) VALUES ('New London, CT',
-    8);
-INSERT INTO station (name, accessibility_code) VALUES ('Old Saybrook, CT',
-    5);
+INSERT INTO station (name, accessibility_code) VALUES ('New London, CT', 8);
+INSERT INTO station (name, accessibility_code) VALUES ('Old Saybrook, CT', 5);
 INSERT INTO station (name, accessibility_code) VALUES ('New Haven, CT', 6);
-INSERT INTO station (name, accessibility_code) VALUES ('Bridgeport, CT',
-    3);
+INSERT INTO station (name, accessibility_code) VALUES ('Bridgeport, CT', 3);
 INSERT INTO station (name, accessibility_code) VALUES ('Stamford, CT', 7);
-INSERT INTO station (name, accessibility_code) VALUES ('New Rochelle, NY',
-    1);
-INSERT INTO station (name, accessibility_code) VALUES ('New York, NY - Penn
-    Station', 2);
+INSERT INTO station (name, accessibility_code) VALUES ('New Rochelle, NY',1);
+INSERT INTO station (name, accessibility_code) VALUES ('New York, NY - Penn Station', 2);
 INSERT INTO station (name, accessibility_code) VALUES ('Newark, NJ', 10);
-INSERT INTO station (name, accessibility_code) VALUES ('Newark Liberty
-    Intl. Air., NJ', 1);
-INSERT INTO station (name, accessibility_code) VALUES ('Metro Park, NJ',
-    8);
+INSERT INTO station (name, accessibility_code) VALUES ('Newark Liberty Intl. Air., NJ', 1);
+INSERT INTO station (name, accessibility_code) VALUES ('Metro Park, NJ', 8);
 INSERT INTO station (name, accessibility_code) VALUES ('Trenton, NJ', 2);
-INSERT INTO station (name, accessibility_code) VALUES ('Philadelphia, PA -
-    30th Street Station', 3);
-INSERT INTO station (name, accessibility_code) VALUES ('Wilmington, DE -
-    J.R. Biden, Jr. Station', 10);
+INSERT INTO station (name, accessibility_code) VALUES ('Philadelphia, PA - 30th Street Station', 3);
+INSERT INTO station (name, accessibility_code) VALUES ('Wilmington, DE - J.R. Biden, Jr. Station', 10);
 INSERT INTO station (name, accessibility_code) VALUES ('Aberdeen, MD', 3);
-INSERT INTO station (name, accessibility_code) VALUES ('Baltimore, MD -
-    Penn Station', 1);
-INSERT INTO station (name, accessibility_code) VALUES ('BWI Marshall
-    Airport, MD', 4);
-INSERT INTO station (name, accessibility_code) VALUES ('New Carrollton,
-    MD', 3);
-INSERT INTO station (name, accessibility_code) VALUES ('Washington, DC -
-    Union Station', 10);
+INSERT INTO station (name, accessibility_code) VALUES ('Baltimore, MD - Penn Station', 1);
+INSERT INTO station (name, accessibility_code) VALUES ('BWI Marshall Airport, MD', 4);
+INSERT INTO station (name, accessibility_code) VALUES ('New Carrollton, MD', 3);
+INSERT INTO station (name, accessibility_code) VALUES ('Washington, DC - Union Station', 10);
 
 
 
