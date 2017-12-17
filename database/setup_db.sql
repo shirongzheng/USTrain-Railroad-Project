@@ -2,7 +2,8 @@
 -- heroku pg:reset --app <app_name>
 
 CREATE TABLE station
-( id                 SERIAL PRIMARY KEY,
+(
+    id                 SERIAL PRIMARY KEY,
     name               TEXT NOT NULL,
     accessibility_code SMALLINT NOT NULL
 );
