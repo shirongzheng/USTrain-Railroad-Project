@@ -3,17 +3,21 @@ let db = require('../database/connect');
 
 router.get('/', (req, res) =>
 {
-    db.any('select * from station')
-    .then((data) =>
+    db.query('SELECT * FROM station')
+    .then((result) =>
     {
-        res.json(data);
+        res.render('root', { stations : result });
     })
     .catch((err) =>
     {
-        res.send('There was an error trying to retrive data fro station table');
+        res.json(err);
     })
-    // will render from template: ../views/root.ejs
-    // res.render('root', { example_data : 'Hello from router!' });
+});
+
+router.post('/', (req, res) =>
+{
+    console.log(req.body);
+    res.send('to be implemented');
 });
 
 module.exports = router;

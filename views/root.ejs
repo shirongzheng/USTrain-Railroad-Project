@@ -2,12 +2,109 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
+    <script src='axios.min.js'></script>
 </head>
 <body>
-    <h1>Hello World</h1>
-    <hr>
-    <? if(locals.example_data !== undefined){ ?>
-        <p><b>Some example string sent from root router: </b><?= example_data ?>
+    <form>
+    Departure date: <input id='_date' type='date' required>
+    <br>
+    Departure time: <select id='_time' required>
+        <option value="any">Any Time</option>
+        <option value="morning">Morning</option>
+        <option value="afternoon">Afternoon</option>
+        <option value="evening">Evening</option>
+    </select>
+    <br>
+    Departure station: <select id='_from_station' required>
+    <? for(let i = 0; i < stations.length; ++i) { ?>
+        <option value='<?= i ?>'><?= stations[i].name ?></option>
     <? } ?>
-    <hr>
+    </select>
+    <br>
+    Arrival station: <select id='_to_station' required>
+    <? for(let i = stations.length-1; i >= 0; --i) { ?>
+        <option value='<?= i ?>'><?= stations[i].name ?></option>
+    <? } ?>
+    </select>
+    <br>
+    <button id='_submit' type='submit'>Show Availabilities</button>
+    </form>
+    <div id='_information'></div>
+    <script>
+        let _date = document.getElementById('_date');
+        let _time = document.getElementById('_time');
+        let _from_station = document.getElementById('_from_station');
+        let _to_station = document.getElementById('_to_station');
+        let _submit = document.getElementById('_submit');
+        let _information = document.getElementById('_information');
+
+        _submit.addEventListener('click', (event) =>
+        {
+            event.preventDefault();
+            if
+            (
+                _date.value.length > 0
+                // &&
+                // _time.options[_time.selectedIndex].value.length > 0 &&
+                // _from_station[_from_station.selectedIndex].value.length > 0 &&
+                // _to_station[_to_station.selectedIndex].value.length > 0
+            )
+            {
+                axios.post
+                (
+                    '/availability_data',
+                    {
+                        date : _date.value,
+                        time : _time.options[_time.selectedIndex].value,
+                        from_station : _from_station[_from_station.selectedIndex].value,
+                        to_station : _to_station[_to_station.selectedIndex].value
+                    }
+                )
+                .then((response) =>
+                {
+                    console.log(response.data);
+                })
+                .catch((err) =>
+                {
+                    console.log('Error:\n', err);
+                });
+            }
+            else
+            {
+                _information.innerHTML = 'Please fill out all the information';
+            }
+        });
+
+
+
+        // _date.addEventListener('change', (event) =>
+        // {
+        //     update_data();
+        // });
+
+        // _time.addEventListener('change', (event) =>
+        // {
+        //     update_data();
+        // })
+
+        // function update_data()
+        // {
+        //     axios.post
+        //     (
+        //         '/choice_data',
+        //         {
+        //             date : new Date(_date.value || Date()),
+        //             time : _time.options[_time.selectedIndex].value
+        //         }
+        //     )
+        //     .then((result) =>
+        //     {
+        //         console.log('result', result.data);
+        //     })
+        //     .catch((err) =>
+        //     {
+        //         console.log('Error', err);
+        //     });
+        // }
+    </script>
 </body>
