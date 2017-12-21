@@ -17,13 +17,13 @@
     <br>
     Departure station: <select id='_from_station' required>
     <? for(let i = 0; i < stations.length; ++i) { ?>
-        <option value='<?= i ?>'><?= stations[i].name ?></option>
+        <option value='<?= i+1 ?>'><?= stations[i].name ?></option>
     <? } ?>
     </select>
     <br>
     Arrival station: <select id='_to_station' required>
     <? for(let i = stations.length-1; i >= 0; --i) { ?>
-        <option value='<?= i ?>'><?= stations[i].name ?></option>
+        <option value='<?= i+1 ?>'><?= stations[i].name ?></option>
     <? } ?>
     </select>
     <br>
