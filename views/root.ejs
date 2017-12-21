@@ -41,15 +41,9 @@
         _submit.addEventListener('click', (event) =>
         {
             event.preventDefault();
-            if
-            (
-                _date.value.length > 0
-                // &&
-                // _time.options[_time.selectedIndex].value.length > 0 &&
-                // _from_station[_from_station.selectedIndex].value.length > 0 &&
-                // _to_station[_to_station.selectedIndex].value.length > 0
-            )
+            if(_date.value.length > 0)
             {
+                _information.innerHTML = '';
                 axios.post
                 (
                     '/availability_data',
@@ -74,37 +68,5 @@
                 _information.innerHTML = 'Please fill out all the information';
             }
         });
-
-
-
-        // _date.addEventListener('change', (event) =>
-        // {
-        //     update_data();
-        // });
-
-        // _time.addEventListener('change', (event) =>
-        // {
-        //     update_data();
-        // })
-
-        // function update_data()
-        // {
-        //     axios.post
-        //     (
-        //         '/choice_data',
-        //         {
-        //             date : new Date(_date.value || Date()),
-        //             time : _time.options[_time.selectedIndex].value
-        //         }
-        //     )
-        //     .then((result) =>
-        //     {
-        //         console.log('result', result.data);
-        //     })
-        //     .catch((err) =>
-        //     {
-        //         console.log('Error', err);
-        //     });
-        // }
     </script>
 </body>
