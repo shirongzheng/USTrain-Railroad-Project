@@ -11,8 +11,23 @@ router.post('/availability_data', (req, res) =>
         else        schedule += '_';
     }
 
-    // TODO
-    db.query(`SELECT id FROM train WHERE days like '${schedule}'`)
+    db.query
+    (
+        `
+        SELECT train_id, arrival_time, departure_time
+        FROM
+        train AS t INNER JOIN stops_at AS s
+        on
+        (
+            t.id = s.train_id AND
+            t.start_station
+                ${req.body.from_station > req.body.to_station? '>' : '<'}
+            t.end_station AND
+            s.station_id = ${req.body.from_station} AND
+            t.days like '${schedule}'
+        );
+        `
+    )
     .then((result) =>
     {
         console.log(result);
