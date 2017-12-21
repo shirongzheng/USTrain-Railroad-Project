@@ -1,14 +1,22 @@
 /** This is the starting point for the whole application */
 
 const express = require('express');
+const exphbs = require('express-handlebars');
 const app = express();
 
 // Setting delimeter for ejs module to '?' instead of '%'
 require('ejs').delimiter = '?';
 
 // Set view engine to ejs and set directory to look up ejs file to ./views/
-app.set('view engine', 'ejs');
-app.set('views', __dirname + '/views');
+
+//app.set('view engine', 'ejs');
+app.engine('handlebars', exphbs({
+  layoutsDir: './views/layouts',
+  defaultLayout: 'main',
+}));
+app.set('view engine', 'handlebars');
+//app.set('views', __dirname + '/views');
+app.set('views', `${__dirname}/views/`);
 
 
 // A simple debugging middleware that prints requested path
