@@ -22,6 +22,7 @@
     "ejs": "2.5.7",
     "express": "4.16.2",
     "express-handlebars": "3.0.0",
+    "materialize-css": "^0.100.2",
     "pg-promise": "7.3.2",
     "validator": "9.1.2"
   }
