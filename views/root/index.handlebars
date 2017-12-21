@@ -4,33 +4,75 @@
     <script src='axios.min.js'></script>
 </head>
 <body>
-    <form>
-    Departure date: <input id='_date' type='date' required>
-    <br>
-    Departure time: <select id='_time' required>
-        <option value="any">Any Time</option>
-        <option value="morning">Morning</option>
-        <option value="afternoon">Afternoon</option>
-        <option value="evening">Evening</option>
-    </select>
-    <br>
-    Departure station: <select id='_from_station' required>
-    <? for(let i = 0; i < stations.length; ++i) { ?>
-        <option value='<?= i+1 ?>'><?= stations[i].name ?></option>
-    <? } ?>
-    </select>
-    <br>
-    Arrival station: <select id='_to_station' required>
-    <? for(let i = stations.length-1; i >= 0; --i) { ?>
-        <option value='<?= i+1 ?>'><?= stations[i].name ?></option>
-    <? } ?>
-    </select>
-    <br>
-    <button id='_submit' type='submit'>Show Availabilities</button>
-    </form>
+
+    <div class="container">
+        <div class="row relative col s10">
+            <div class="card-panel" >
+                <h4 class="card-title">Search Trips</h4>
+                <br>
+                
+                    <form>
+                        <div class="row">
+                            <div class="col s12">
+                                Departure date: 
+                                <div class="input-field inline">
+                                    <input id='_date' type='date' required>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="row">
+                            <div class="col s12">
+                                Departure time: 
+                                <div class="input-field inline">
+                                    <select id='_time' required>
+                                        <option value="any">Any Time</option>
+                                        <option value="morning">Morning</option>
+                                        <option value="afternoon">Afternoon</option>
+                                        <option value="evening">Evening</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="row">
+                            <div class="col s12">
+                                Departure station: 
+                                <div class="input-field inline">
+                                    <select id='_from_station' required>
+                                        {{#each stations}}
+                                            <option value="{{this.id}}">{{this.name}}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="row">
+                            <div class="col s12">
+                                Arrival station: 
+                                <div class="input-field inline">
+                                    <select id='_to_station' required>
+                                        {{#each stations}}
+                                            <option value="{{this.id}}">{{this.name}}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <button id='_submit' type='submit'>Show Availabilities</button>
+                    </form>
+                
+            </div>
+        </div>
+    </div>
     <div id='_information'></div>
     <ul id='_trains'>
-
     </ul>
     <script>
         let _date = document.getElementById('_date');
@@ -81,5 +123,9 @@
                 _information.innerHTML = 'Please fill out all the information';
             }
         });
+
+          $(document).ready(function() {
+            $('select').material_select();
+          });
     </script>
 </body>
