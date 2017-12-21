@@ -30,6 +30,9 @@
     <button id='_submit' type='submit'>Show Availabilities</button>
     </form>
     <div id='_information'></div>
+    <ul id='_trains'>
+
+    </ul>
     <script>
         let _date = document.getElementById('_date');
         let _time = document.getElementById('_time');
@@ -37,6 +40,7 @@
         let _to_station = document.getElementById('_to_station');
         let _submit = document.getElementById('_submit');
         let _information = document.getElementById('_information');
+        let _trains = document.getElementById('_trains');
 
         _submit.addEventListener('click', (event) =>
         {
@@ -56,7 +60,17 @@
                 )
                 .then((response) =>
                 {
-                    console.log(response.data);
+                    let inner = '';
+                    for(let i = 0; i < response.data.length; ++i)
+                    {
+                        inner +=
+                            '<li>'
+                                + '<b>Train: </b>' + response.data[i].train_id
+                                + '<br><b>Arrival time: </b>' + response.data[i].arrival_time
+                                // + '<br><b>Departure time: </b>' + response.data[i].departure_time +
+                            '</li>\n';
+                    }
+                    _trains.innerHTML = inner;
                 })
                 .catch((err) =>
                 {
