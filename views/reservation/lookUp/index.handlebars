@@ -1,0 +1,53 @@
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <script src='axios.min.js'></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="section"></div>
+            <div class="section"></div>
+            <div class="col s6 offset-s3" >
+                <div class="card-panel" >
+                    <h4 class="card-title center">Reservation Look Up</h4>
+                    <hr>
+                    <form>
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <input id="first_name" type="text" name="first_name" class="validate" required>
+                                <label for="first_name">First Name</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input id="last_name" type="text" name="last_name" class="validate" required>
+                                <label for="last_name">Last Name</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="email" type="email" name="email"class="validate" required>
+                                <label for="email">Email</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input type="text" name="reservation_id" id ="reservation_id" maxlength="16" minlength="16"  required>
+                                <label for="reservation_id">Reservation Id</label>
+                            </div>
+                        </div>
+                        <center >
+                            <button class="btn waves-effect waves-light amber darken-1" type="submit" id="_submit">Look Up
+                            </button>
+                        </center>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('select').material_select();
+        });
+    </script>
+</body>
