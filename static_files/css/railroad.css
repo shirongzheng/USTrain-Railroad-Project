@@ -1,9 +1,25 @@
 div.relative {
   position: fixed;
-  top: 50%;
+  top: 90%;
   left: 50%;
   /* bring your own prefixes */
   transform: translate(-50%, -50%);
 }
 
+div.relativeLeft {
+  position: fixed;
+  top: 50%;
+  left: 30%;
+  /* bring your own prefixes */
+  transform: translate(-30%, -50%);
+}
+
+div.relativeRight {
+  position: fixed;
+  width: 500px;
+  top: 50%;
+  left: 70%;
+  /* bring your own prefixes */
+  transform: translate(-70%, -50%);
+}
 
