@@ -4,125 +4,103 @@
     <script src='axios.min.js'></script>
 </head>
 <body>
-
-
     <div class="container">
-        <div class="row relative col s10">
-            <div class="card-panel" >
-                <h4 class="card-title">Book Trips</h4>
-                
-                
-                 <!--   <form> -->
-                        <div class="row">
-                            <div class="col s12">
-                                Departure date: 
-                                <div class="input-field inline">
-                                    <input id='_date' type='date' required>
-                                </div>
-                            </div>
-                        </div>
-                        
-
-                        <div class="row">
-                            <div class="col s12">
-                                Departure time: 
-                                <div class="input-field inline">
-                                    <select id='_time' required>
-                                        <option value="any">Any Time</option>
-                                        <option value="morning">Morning</option>
-                                        <option value="afternoon">Afternoon</option>
-                                        <option value="evening">Evening</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                       
-                       
-
-                        <div class="div-inline">
-                            <div class="col s4">
-                                Child: 
-                                <div class="input-field inline">
-                                    <select id='_children' required>
-                                        <option value="children0">0</option>
-                                        <option value="children1">1</option>
-                                        <option value="children2">2</option>
-                                        <option value="children3">3</option>
-                                        <option value="children4">4</option>
-                                        <option value="children5">5</option>
-                                        <option value="children6">6</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="div-inline">
-                            <div class="col s4">
-                                Adult: 
-                                <div class="input-field inline">
-                                    <select id='_adult' required>
-                                        <option value="adult0">0</option>
-                                        <option value="adult1">1</option>
-                                        <option value="adult2">2</option>
-                                        <option value="adult3">3</option>
-                                        <option value="adult4">4</option>
-                                        <option value="adult5">5</option>
-                                        <option value="adult6">6</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        
-
-                         <div class="div-inline">
-                            <div class="col s4">
-                                Senior(65+): 
-                                <div class="input-field inline">
-                                    <select id='_senior' required>
-                                        <option value="senior0">0</option>
-                                        <option value="senior1">1</option>
-                                        <option value="senior2">2</option>
-                                        <option value="senior3">3</option>
-                                        <option value="senior4">4</option>
-                                        <option value="senior5">5</option>
-                                        <option value="senior6">6</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                      
-
-                        <div class="row">
-                            <div class="col s12">
-                                Departure station: 
-                                <div class="input-field inline">
-                                    <select id='_from_station' required>
-                                        {{#each stations}}
-                                            <option value="{{this.id}}">{{this.name}}</option>
-                                        {{/each}}
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
+        <div class="row">
+            <div class="section"></div>
+            <div class="section"></div>
+            <div class="col s6 offset-s3" >
+                <div class="card-panel" >
+                    <h4 class="card-title">Book Trip</h4>
                     
-
-                        <div class="row">
-                            <div class="col s12">
-                                Arrival station: 
-                                <div class="input-field inline">
-                                    <select id='_to_station' required>
-                                        {{#each stations}}
-                                            <option value="{{this.id}}">{{this.name}}</option>
-                                        {{/each}}
-                                    </select>
+                        <form>
+                            <div class="row">
+                                <div class="col s12">
+                                    Departure date: {{departureDate}}
                                 </div>
                             </div>
-                        </div>
+                            
+
+                            <div class="row">
+                                <div class="col s12">
+                                    Departure time: {{departureTime}}
+                                </div>
+                            </div>
+                           
+                            <div class="row">
+                                <div class="col s12">
+                                    Departure station: {{departureStation}}
+                                </div>
+                            </div>
                         
 
-                        <button id='_submit' type='submit'>Show Availabilities</button>
-                  <!--  </form> -->
-                
+                            <div class="row">
+                                <div class="col s12">
+                                    Arrival station: {{arrivalStation}}
+                                </div>
+                            </div>
+
+                            <div class="div-inline">
+                                <div class="col s4">
+                                    Child: 
+                                    <div class="input-field inline">
+                                        <select id='_children' required>
+                                            <option value="children0">0</option>
+                                            <option value="children1">1</option>
+                                            <option value="children2">2</option>
+                                            <option value="children3">3</option>
+                                            <option value="children4">4</option>
+                                            <option value="children5">5</option>
+                                            <option value="children6">6</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="div-inline">
+                                <div class="col s4">
+                                    Adult: 
+                                    <div class="input-field inline">
+                                        <select id='_adult' required>
+                                            <option value="adult0">0</option>
+                                            <option value="adult1">1</option>
+                                            <option value="adult2">2</option>
+                                            <option value="adult3">3</option>
+                                            <option value="adult4">4</option>
+                                            <option value="adult5">5</option>
+                                            <option value="adult6">6</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+
+                             <div class="div-inline">
+                                <div class="col s4">
+                                    Senior(65+): 
+                                    <div class="input-field inline">
+                                        <select id='_senior' required>
+                                            <option value="senior0">0</option>
+                                            <option value="senior1">1</option>
+                                            <option value="senior2">2</option>
+                                            <option value="senior3">3</option>
+                                            <option value="senior4">4</option>
+                                            <option value="senior5">5</option>
+                                            <option value="senior6">6</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                          
+
+
+                            
+
+                        <center >
+                            <button class="btn waves-effect waves-light" type="submit" id="_submit">Book
+                            </button>
+                        </center>
+                        </form>
+                </div>
             </div>
         </div>
     </div>
