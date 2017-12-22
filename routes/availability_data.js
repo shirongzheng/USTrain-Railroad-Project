@@ -31,7 +31,7 @@ router.post('/availability_data', (req, res) =>
     }
 
 
-    let query =
+    let query2 =
     `
     SELECT train_id, arrival_time, departure_time
     FROM
@@ -48,16 +48,108 @@ router.post('/availability_data', (req, res) =>
     );
     `;
 
-    console.log(query);
+    let query1 =
+    `
+    SELECT id, distance, base_fare FROM segment
+    WHERE
+        start_station >= ${Math.min
+            (
+                Number(req.body.from_station),
+                Number(req.body.to_station)
+            )} AND
+        end_station <= ${Math.max
+            (
+                Number(req.body.from_station), Number(req.body.to_station)
+            )};
+    `;
 
-    db.query(query)
+
+    let segments;
+    let query_2_result;
+    let seats_free;
+
+    db.query(query1)
     .then((result) =>
     {
-        console.log(result);
-        res.json(result);
+        segments = result;
+
+        return db.query(query2);
+    })
+    .then((result) =>
+    {
+        query_2_result = result;
+        let ensure_seats_free_set_p = [];
+        for(let i = 0; i < result.length; ++i)
+        {
+            for(let k = 0; k < segments.length; ++k)
+            {
+                ensure_seats_free_set_p.push
+                (
+                    db.any
+                    (
+                        `
+                        SELECT ensure_seats_free_set
+                        (
+                            ${result[i].train_id},
+                            ${segments[k].id},
+                            '${req.body.date}'
+                        );
+                        `
+                    )
+                );
+            }
+        }
+
+        return Promise.all(ensure_seats_free_set_p);
+    })
+    .then(() =>
+    {
+        let seats_free_p = [];
+        for(let i = 0; i < query_2_result.length; ++i)
+        {
+            for(let k = 0; k < segments.length; ++k)
+            {
+                seats_free_p.push
+                (
+                    db.one
+                    (
+                        `
+                        SELECT train_id, num_of_free_seats FROM seats_free
+                        WHERE
+                            train_id=${query_2_result[i].train_id} AND
+                            segment_id=${segments[k].id} AND
+                            of_date='${req.body.date}'
+                        `
+                    )
+                );
+            }
+        }
+
+        return Promise.all(seats_free_p);
+    })
+    .then((result) =>
+    {
+        seats_free = result;
+        let s_f_i = 0; // seats_free index
+        for(let i = 0; i < query_2_result.length; ++i)
+        {
+            let is_seats_free = true;
+            for(let m = 0; m < segments.length; ++m)
+                if(seats_free[s_f_i++].num_of_free_seats <= 0) is_seats_free = false;
+            query_2_result[i].is_seats_free = is_seats_free;
+        }
+    })
+    .then(() =>
+    {
+        query_2_result = query_2_result.filter((val) =>
+        {
+            if(val.is_seats_free === true) return val;
+        });
+        res.json(query_2_result);
     })
     .catch((err) =>
     {
+        console.log('ERROR:\n', err);
         res.json({ error : err });
     });
 });
