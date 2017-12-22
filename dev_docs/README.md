@@ -25,6 +25,9 @@ To reset (delete) everything in db:
     sudo psql -U railroad_admin -d railroad
     DROP OWNED BY current_user CASCADE;
 
+To easily add all tables, functions, and initial data run `make` in
+[../database/](../database/) folder.
+
 Other useful commands from promt:
 
     \dt
