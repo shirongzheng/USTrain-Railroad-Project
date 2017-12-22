@@ -14,6 +14,19 @@ router.get('/', (req, res) =>
     })
 });
 
+router.get('/book', (req, res) =>
+{
+    db.query('SELECT * FROM station')
+    .then((result) =>
+    {
+        res.render('book', { stations : result});
+    })
+    .catch((err) =>
+    {
+        res.json(err);
+    })
+});
+
 router.post('/', (req, res) =>
 {
     console.log(req.body);
