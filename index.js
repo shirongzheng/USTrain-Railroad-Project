@@ -26,6 +26,31 @@ app.use(express.static(__dirname + '/static_files'));
 app.use(require('body-parser').urlencoded({ extended: false }));
 app.use(require('body-parser').json()); // For parsing application/json content type
 
+// Session setup, reuses existing pg-promise connection:
+let session = require('express-session');
+app.use
+(
+    session
+    (
+        {
+            store: new (require('connect-pg-simple')(session))
+            (
+                {
+                    pgPromise : require('./database/connect'),
+                }
+            ),
+            secret: process.env.FOO_COOKIE_SECRET || 'default_secret873iuhj',
+            cookie:
+            {
+                maxAge: 1 * 24 * 60 * 60 * 1000 /* 1 day */,
+                secure : process.env.DATABASE_URL ? true : false
+            },
+            resave: true,
+            saveUninitialized: true
+        }
+    )
+);
+
 // Automatically add/"use" all files in ./routes/ directory
 {
 

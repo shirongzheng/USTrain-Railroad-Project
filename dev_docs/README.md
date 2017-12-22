@@ -5,13 +5,6 @@
     + or `node index.js`
 + Default URL to test on browser: `localhost:9001`
 
-# Module documentation links
-
-+ Express.js : <http://expressjs.com/en/4x/api.html>
-+ EJS : <http://ejs.co/>
-+ Body-parser : <https://github.com/expressjs/body-parser>
-+ Validator: <https://www.npmjs.com/package/validator>
-+ Pg-promise : <https://github.com/vitaly-t/pg-promise>
 
 # Local database setup example
 
@@ -38,3 +31,14 @@ Other useful commands from promt:
     \d
     \dt+
     \conninfo
+
+# Module documentation links
+
++ Express.js : <http://expressjs.com/en/4x/api.html>
++ EJS : <http://ejs.co/>
++ Body-parser : <https://github.com/expressjs/body-parser>
++ Validator: <https://www.npmjs.com/package/validator>
++ Pg-promise : <https://github.com/vitaly-t/pg-promise>
++ Express-session : <https://github.com/expressjs/session>
++ Connect-pg-simple : <https://www.npmjs.com/package/connect-pg-simple>
+    + Remember to add session table: `sudo psql -U railroad_admin -d railroad < node_modules/connect-pg-simple/table.sql`
