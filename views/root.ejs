@@ -54,23 +54,33 @@
                     {
                         date : _date.value,
                         time : _time.options[_time.selectedIndex].value,
-                        from_station : _from_station[_from_station.selectedIndex].value,
+                        from_station : _from_station[_from_station.selectedIndex]
+                                       .value,
                         to_station : _to_station[_to_station.selectedIndex].value
                     }
                 )
                 .then((response) =>
                 {
+                    console.log(response.data);
                     let inner = '';
-                    for(let i = 0; i < response.data.length; ++i)
+                    for(let i = 0; i < response.data.trains.length; ++i)
                     {
                         inner +=
                             '<li>'
-                                + '<b>Train: </b>' + response.data[i].train_id
-                                + '<br><b>Arrival time: </b>' + response.data[i].arrival_time
-                                // + '<br><b>Departure time: </b>' + response.data[i].departure_time +
+                                + '<b>Train: </b>'
+                                + response.data.trains[i].train_id
+                                + '<br><b>Arrival time: </b>'
+                                + response.data.trains[i].arrival_time
+                                // + '<br><b>Departure time: </b>'
+                                // + response.data.trains[i].departure_time +
                             '</li>\n';
                     }
                     _trains.innerHTML = inner;
+                    _information.innerHTML = '<br><b>Base fare: </b>$'
+                                              + response.data.base_fare + '<br>'
+                                              + '<b>Distance: </b>'
+                                              + response.data.distance
+                                              + ' miles';
                 })
                 .catch((err) =>
                 {

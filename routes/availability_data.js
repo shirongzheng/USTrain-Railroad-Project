@@ -67,11 +67,18 @@ router.post('/availability_data', (req, res) =>
     let segments;
     let query_2_result;
     let seats_free;
+    let base_fare = 0;
+    let distance = 0;
 
     db.query(query1)
     .then((result) =>
     {
         segments = result;
+        for(let i = 0 ; i < result.length; ++i)
+        {
+            base_fare += Number(result[i].base_fare);
+            distance += Number(result[i].distance);
+        }
 
         return db.query(query2);
     })
@@ -145,7 +152,13 @@ router.post('/availability_data', (req, res) =>
         {
             if(val.is_seats_free === true) return val;
         });
-        res.json(query_2_result);
+
+        let obj = {};
+        obj.trains = query_2_result;
+        obj.base_fare = base_fare;
+        obj.distance = distance;
+
+        res.json(obj);
     })
     .catch((err) =>
     {
