@@ -16,7 +16,7 @@ router.get('/', (req, res) =>
 
 router.get('/book/:train_id/:arrival_time/:date/:from_station/:to_station', (req, res) =>
 {    
-    //GET AMOUNT OF FREE SEATS + PRICE OF SEAT
+    //NEEDS TO BE DONE ->GET AMOUNT OF FREE SEATS + PRICE OF SEAT
     db.query(`SELECT * FROM station WHERE id =${req.params.from_station} LIMIT 1`)
     .then((from_station) =>{
         db.query(`SELECT * FROM station WHERE id =${req.params.to_station} LIMIT 1`)
