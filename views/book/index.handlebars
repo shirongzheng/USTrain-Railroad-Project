@@ -10,155 +10,144 @@
             <div class="section"></div>
             <div class="col s6 offset-s3" >
                 <div class="card-panel" >
-                    <h4 class="card-title">Book Trip</h4>
-                    
+                    <h4 class="card-title center">Book Trip</h4>
+                    <hr>
                         <form>
                             <div class="row">
-                                <div class="col s12">
-                                    Departure date: {{departureDate}}
-                                </div>
-                            </div>
-                            
+                                <div class="col s6">
+                                    <div class="row">
+                                        <div class="col s12">
+                                            Departure date: {{departureDate}}
+                                        </div>
+                                    </div>
+                                    
 
-                            <div class="row">
-                                <div class="col s12">
-                                    Departure time: {{departureTime}}
-                                </div>
-                            </div>
-                           
-                            <div class="row">
-                                <div class="col s12">
-                                    Departure station: {{departureStation}}
-                                </div>
-                            </div>
-                        
+                                    <div class="row">
+                                        <div class="col s12">
+                                            Departure time: {{departureTime}}
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="row">
+                                        <div class="col s12">
+                                            Departure station: {{departureStation}}
+                                        </div>
+                                    </div>
+                                
 
-                            <div class="row">
-                                <div class="col s12">
-                                    Arrival station: {{arrivalStation}}
+                                    <div class="row">
+                                        <div class="col s12">
+                                            Arrival station: {{arrivalStation}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s6">
+                                    <br>
+                                    <h3 id="total" class="center">
+                                        Total: $0
+                                    </h3>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="div-inline">
+                                    <div class="col s4">
+                                        <div class="col s4">
+                                            Child: 
+                                        </div>
+                                        <div  class="col s8">
+                                            $<span id="child_price">20</span>
+                                        </div>
+                                        <div class="input-field inline">
+                                            <select id='_children' onchange="priceChange()" required>
+                                                <option value="children0">0</option>
+                                                <option value="children1">1</option>
+                                                <option value="children2">2</option>
+                                                <option value="children3">3</option>
+                                                <option value="children4">4</option>
+                                                <option value="children5">5</option>
+                                                <option value="children6">6</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
 
-                            <div class="div-inline">
-                                <div class="col s4">
-                                    Child: 
-                                    <div class="input-field inline">
-                                        <select id='_children' required>
-                                            <option value="children0">0</option>
-                                            <option value="children1">1</option>
-                                            <option value="children2">2</option>
-                                            <option value="children3">3</option>
-                                            <option value="children4">4</option>
-                                            <option value="children5">5</option>
-                                            <option value="children6">6</option>
-                                        </select>
+                                <div class="div-inline">
+                                    <div class="col s4">
+                                        <div class="col s4">
+                                            Adult: 
+                                        </div>
+                                        <div  class="col s8">
+                                            $<span id="adult_price">35</span>
+                                        </div>
+                                        <div class="input-field inline">
+                                            <select id='_adult' onchange="priceChange()" required>
+                                                <option value="adult0">0</option>
+                                                <option value="adult1">1</option>
+                                                <option value="adult2">2</option>
+                                                <option value="adult3">3</option>
+                                                <option value="adult4">4</option>
+                                                <option value="adult5">5</option>
+                                                <option value="adult6">6</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+
+                                 <div class="div-inline">
+                                    <div class="col s4">
+                                        <div class="col s7">
+                                            Senior(65+): 
+                                        </div>
+                                        <div class="col s5">
+                                            $<span id="senior_price">25</span>
+                                        </div>
+                                        <div class="input-field inline">
+                                            <select id='_senior' onchange="priceChange()" required>
+                                                <option value="senior0">0</option>
+                                                <option value="senior1">1</option>
+                                                <option value="senior2">2</option>
+                                                <option value="senior3">3</option>
+                                                <option value="senior4">4</option>
+                                                <option value="senior5">5</option>
+                                                <option value="senior6">6</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="div-inline">
-                                <div class="col s4">
-                                    Adult: 
-                                    <div class="input-field inline">
-                                        <select id='_adult' required>
-                                            <option value="adult0">0</option>
-                                            <option value="adult1">1</option>
-                                            <option value="adult2">2</option>
-                                            <option value="adult3">3</option>
-                                            <option value="adult4">4</option>
-                                            <option value="adult5">5</option>
-                                            <option value="adult6">6</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            
-
-                             <div class="div-inline">
-                                <div class="col s4">
-                                    Senior(65+): 
-                                    <div class="input-field inline">
-                                        <select id='_senior' required>
-                                            <option value="senior0">0</option>
-                                            <option value="senior1">1</option>
-                                            <option value="senior2">2</option>
-                                            <option value="senior3">3</option>
-                                            <option value="senior4">4</option>
-                                            <option value="senior5">5</option>
-                                            <option value="senior6">6</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                          
-
-
-                            
-
                         <center >
                             <button class="btn waves-effect waves-light" type="submit" id="_submit">Book
                             </button>
                         </center>
-                        </form>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <div id='_information'></div>
-    <ul id='_trains'>
-    </ul>
+
     <script>
-        let _date = document.getElementById('_date');
-        let _time = document.getElementById('_time');
-        let _from_station = document.getElementById('_from_station');
-        let _to_station = document.getElementById('_to_station');
-        let _submit = document.getElementById('_submit');
-        let _information = document.getElementById('_information');
-        let _trains = document.getElementById('_trains');
-
-        _submit.addEventListener('click', (event) =>
-        {
-            event.preventDefault();
-            if(_date.value.length > 0)
-            {
-                _information.innerHTML = '';
-                axios.post
-                (
-                    '/availability_data',
-                    {
-                        date : _date.value,
-                        time : _time.options[_time.selectedIndex].value,
-                        from_station : _from_station[_from_station.selectedIndex].value,
-                        to_station : _to_station[_to_station.selectedIndex].value
-                    }
-                )
-                .then((response) =>
-                {
-                    let inner = '';
-                    for(let i = 0; i < response.data.length; ++i)
-                    {
-                        inner +=
-                            '<li>'
-                                + '<b>Train: </b>' + response.data[i].train_id
-                                + '<br><b>Arrival time: </b>' + response.data[i].arrival_time
-                                // + '<br><b>Departure time: </b>' + response.data[i].departure_time +
-                            '</li>\n';
-                    }
-                    _trains.innerHTML = inner;
-                })
-                .catch((err) =>
-                {
-                    console.log('Error:\n', err);
-                });
-            }
-            else
-            {
-                _information.innerHTML = 'Please fill out all the information';
-            }
-        });
-
-          $(document).ready(function() {
+        $(document).ready(function() {
             $('select').material_select();
-          });
+        });
+        function priceChange(){
+            let number_of_senior = document.getElementById('_senior').value;
+            let number_of_children = document.getElementById('_children').value;
+            let number_of_adult = document.getElementById('_adult').value;
+
+            number_of_adult = (number_of_adult.charAt(number_of_adult.length-1));
+            number_of_children = (number_of_children.charAt(number_of_children.length-1));
+            number_of_senior = (number_of_senior.charAt(number_of_senior.length-1));
+
+            let price_for_senior = document.getElementById('senior_price').innerHTML;
+            let price_for_children = document.getElementById('child_price').innerHTML;
+            let price_for_adult = document.getElementById('adult_price').innerHTML;
+
+            var total = (number_of_senior*price_for_senior) + (number_of_children*price_for_children) +(number_of_adult*price_for_adult);
+
+
+            document.getElementById('total').innerHTML = 'Total: $'+total;
+
+        }
     </script>
 </body>
