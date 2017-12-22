@@ -1,0 +1,186 @@
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <script src='axios.min.js'></script>
+</head>
+<body>
+
+
+    <div class="container">
+        <div class="row relative col s10">
+            <div class="card-panel" >
+                <h4 class="card-title">Book Trips</h4>
+                
+                
+                 <!--   <form> -->
+                        <div class="row">
+                            <div class="col s12">
+                                Departure date: 
+                                <div class="input-field inline">
+                                    <input id='_date' type='date' required>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+                        <div class="row">
+                            <div class="col s12">
+                                Departure time: 
+                                <div class="input-field inline">
+                                    <select id='_time' required>
+                                        <option value="any">Any Time</option>
+                                        <option value="morning">Morning</option>
+                                        <option value="afternoon">Afternoon</option>
+                                        <option value="evening">Evening</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                       
+                       
+
+                        <div class="div-inline">
+                            <div class="col s4">
+                                Child: 
+                                <div class="input-field inline">
+                                    <select id='_children' required>
+                                        <option value="children0">0</option>
+                                        <option value="children1">1</option>
+                                        <option value="children2">2</option>
+                                        <option value="children3">3</option>
+                                        <option value="children4">4</option>
+                                        <option value="children5">5</option>
+                                        <option value="children6">6</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="div-inline">
+                            <div class="col s4">
+                                Adult: 
+                                <div class="input-field inline">
+                                    <select id='_adult' required>
+                                        <option value="adult0">0</option>
+                                        <option value="adult1">1</option>
+                                        <option value="adult2">2</option>
+                                        <option value="adult3">3</option>
+                                        <option value="adult4">4</option>
+                                        <option value="adult5">5</option>
+                                        <option value="adult6">6</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+                         <div class="div-inline">
+                            <div class="col s4">
+                                Senior(65+): 
+                                <div class="input-field inline">
+                                    <select id='_senior' required>
+                                        <option value="senior0">0</option>
+                                        <option value="senior1">1</option>
+                                        <option value="senior2">2</option>
+                                        <option value="senior3">3</option>
+                                        <option value="senior4">4</option>
+                                        <option value="senior5">5</option>
+                                        <option value="senior6">6</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                      
+
+                        <div class="row">
+                            <div class="col s12">
+                                Departure station: 
+                                <div class="input-field inline">
+                                    <select id='_from_station' required>
+                                        {{#each stations}}
+                                            <option value="{{this.id}}">{{this.name}}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    
+
+                        <div class="row">
+                            <div class="col s12">
+                                Arrival station: 
+                                <div class="input-field inline">
+                                    <select id='_to_station' required>
+                                        {{#each stations}}
+                                            <option value="{{this.id}}">{{this.name}}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+                        <button id='_submit' type='submit'>Show Availabilities</button>
+                  <!--  </form> -->
+                
+            </div>
+        </div>
+    </div>
+    <div id='_information'></div>
+    <ul id='_trains'>
+    </ul>
+    <script>
+        let _date = document.getElementById('_date');
+        let _time = document.getElementById('_time');
+        let _from_station = document.getElementById('_from_station');
+        let _to_station = document.getElementById('_to_station');
+        let _submit = document.getElementById('_submit');
+        let _information = document.getElementById('_information');
+        let _trains = document.getElementById('_trains');
+
+        _submit.addEventListener('click', (event) =>
+        {
+            event.preventDefault();
+            if(_date.value.length > 0)
+            {
+                _information.innerHTML = '';
+                axios.post
+                (
+                    '/availability_data',
+                    {
+                        date : _date.value,
+                        time : _time.options[_time.selectedIndex].value,
+                        from_station : _from_station[_from_station.selectedIndex].value,
+                        to_station : _to_station[_to_station.selectedIndex].value
+                    }
+                )
+                .then((response) =>
+                {
+                    let inner = '';
+                    for(let i = 0; i < response.data.length; ++i)
+                    {
+                        inner +=
+                            '<li>'
+                                + '<b>Train: </b>' + response.data[i].train_id
+                                + '<br><b>Arrival time: </b>' + response.data[i].arrival_time
+                                // + '<br><b>Departure time: </b>' + response.data[i].departure_time +
+                            '</li>\n';
+                    }
+                    _trains.innerHTML = inner;
+                })
+                .catch((err) =>
+                {
+                    console.log('Error:\n', err);
+                });
+            }
+            else
+            {
+                _information.innerHTML = 'Please fill out all the information';
+            }
+        });
+
+          $(document).ready(function() {
+            $('select').material_select();
+          });
+    </script>
+</body>
