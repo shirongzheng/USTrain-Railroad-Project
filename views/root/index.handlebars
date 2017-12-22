@@ -5,28 +5,32 @@
 </head>
 <body>
 
+
+
     <div class="container">
-        <div class="row relative col s10">
-            <div class="card-panel" >
-                <h4 class="card-title">Search Trips</h4>
-                <br>
-                
+        <div class="row">
+            <div class="section"></div>
+            <div class="section"></div>
+            <div class="col s5">
+                <div class="card-panel" >
+                    <h4 class="card-title center">Search Trips</h4>
+                    <hr>
                     <form>
                         <div class="row">
-                            <div class="col s12">
+                            <div class="col s12 center">
                                 Departure date: 
                                 <div class="input-field inline">
-                                    <input id='_date' type='date' required>
+                                    <input id='_date' type='date' onchange="myCick()" required>
                                 </div>
                             </div>
                         </div>
                         <br>
 
                         <div class="row">
-                            <div class="col s12">
+                            <div class="col s12 center">
                                 Departure time: 
                                 <div class="input-field inline">
-                                    <select id='_time' required>
+                                    <select id='_time' onchange="myCick()" required>
                                         <option value="any">Any Time</option>
                                         <option value="morning">Morning</option>
                                         <option value="afternoon">Afternoon</option>
@@ -40,8 +44,8 @@
                         <div class="row">
                             <div class="col s12">
                                 Departure station: 
-                                <div class="input-field inline">
-                                    <select id='_from_station' required>
+                                <div class="input-field ">
+                                    <select id='_from_station' onchange="myCick()" required>
                                         {{#each stations}}
                                             <option value="{{this.id}}">{{this.name}}</option>
                                         {{/each}}
@@ -54,8 +58,8 @@
                         <div class="row">
                             <div class="col s12">
                                 Arrival station: 
-                                <div class="input-field inline">
-                                    <select id='_to_station' required>
+                                <div class="input-field ">
+                                    <select id='_to_station' onchange="myCick()" required>
                                         {{#each stations}}
                                             <option value="{{this.id}}">{{this.name}}</option>
                                         {{/each}}
@@ -64,20 +68,45 @@
                             </div>
                         </div>
                         <br>
-                        <center>
+                        <center hidden="true">
                             <button class="btn waves-effect waves-light" type="submit" id="_submit">Show Availabilities
                                 <i class="material-icons right">send</i>
                             </button>
                         </center>
                     </form>
-                
+                </div>
+            </div>
+            <div class="col s5 offset-s2">
+                <div class="card-panel" >
+                    <table id = '_trains' class="striped"></table>
+                </div>
+            </div>
+        </div>
+        <div class="container" >
+            <div id="card-alert" class="card red lighten-5" hidden="true">
+                <div class="card-content red-text">
+                    <p><center>Please fill out all the information</center></p>
+                </div>
             </div>
         </div>
     </div>
-    <div id='_information'></div>
+    {{!-- <div id='_information'></div>
     <ul id='_trains'>
-    </ul>
+    </ul> --}}
     <script>
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1;
+        var yyyy = today.getFullYear();
+        if(dd<10){
+            dd='0'+dd
+        } 
+        if(mm<10){
+            mm='0'+mm
+        } 
+        today = yyyy +'-'+mm+'-'+dd;
+        $('#_date').attr("value",today);
+
         let _date = document.getElementById('_date');
         let _time = document.getElementById('_time');
         let _from_station = document.getElementById('_from_station');
@@ -91,7 +120,7 @@
             event.preventDefault();
             if(_date.value.length > 0)
             {
-                _information.innerHTML = '';
+                //_information.innerHTML = '';
                 axios.post
                 (
                     '/availability_data',
@@ -104,17 +133,37 @@
                 )
                 .then((response) =>
                 {
-                    let inner = '';
+                    let inner =
+                                '<thead>'
+                                    +'<tr>'
+                                        +'<th>Train</th>'
+                                        +'<th>Arrival time</th>'
+                                        //+'<th>Departure time</th>'
+                                    +'</tr>'
+                                +'</thead>'
+                                +'<tbody>'
                     for(let i = 0; i < response.data.length; ++i)
                     {
-                        inner +=
+                        inner +=          
+                                    '<tr>'
+                                        +'<td>'+response.data[i].train_id+'</td>'
+                                        +'<td>'+response.data[i].arrival_time+'</td>'
+                                        //+'<td>'+response.data[i].departure_time+'</td>'
+                                        +'<td><a class="waves-effect waves-light btn">Book</a></td>'
+                                    +'</tr>';
+                            /*
                             '<li>'
                                 + '<b>Train: </b>' + response.data[i].train_id
                                 + '<br><b>Arrival time: </b>' + response.data[i].arrival_time
                                 // + '<br><b>Departure time: </b>' + response.data[i].departure_time +
                             '</li>\n';
+                            */
                     }
+                    inner +=    
+                                '</tbody>';
+
                     _trains.innerHTML = inner;
+                    $('#card-alert').attr("hidden", "true");
                 })
                 .catch((err) =>
                 {
@@ -123,12 +172,19 @@
             }
             else
             {
-                _information.innerHTML = 'Please fill out all the information';
+                $('#card-alert').removeAttr('hidden');
+                //_information.innerHTML = 'Please fill out all the information';
             }
         });
 
-          $(document).ready(function() {
+        $(document).ready(function() {
             $('select').material_select();
-          });
+            $( "#_submit" ).click();
+        });
+
+
+        function myCick(){
+            $( "#_submit" ).click();
+        }
     </script>
 </body>
