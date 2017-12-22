@@ -176,19 +176,19 @@
                                 <br>
                                 <div>
                                     <div class="input-field col s6">
-                                        <input id="first_name" type="text" class="validate">
+                                        <input id="first_name" type="text" name="first_name" class="validate" required>
                                         <label for="first_name">First Name</label>
                                     </div>
                                 </div>
                                 <div>
                                     <div class="input-field col s6">
-                                        <input id="last_name" type="text" class="validate">
+                                        <input id="last_name" type="text" name="last_name" class="validate" required>
                                         <label for="last_name">Last Name</label>
                                     </div>
                                 </div>
                                 <div>
                                     <div class="input-field col s12">
-                                        <input id="email" type="email" class="validate" >
+                                        <input id="email" type="email" name="email"class="validate" required>
                                         <label for="email">Email</label>
                                     </div>
                                 </div>
@@ -206,6 +206,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <input type="hidden" id="totalPrice" name="totalPrice" value="0">
                         <center >
                             <button class="btn waves-effect waves-light amber darken-1" type="submit" id="_submit">Book
                             </button>
@@ -272,6 +273,8 @@
                 total = (number_of_senior*price_for_senior) + (number_of_children*price_for_children) +(number_of_adult*price_for_adult) +(price_for_military*number_of_military) +(number_of_pet*price_for_pet);
             }
 
+            $('#totalPrice').removeAttr('value');
+            $('#totalPrice').attr("value", total);
             document.getElementById('total').innerHTML = 'Total: $'+total;
 
         }
