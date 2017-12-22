@@ -14,17 +14,21 @@ router.get('/', (req, res) =>
     })
 });
 
-router.get('/book', (req, res) =>
-{
-    db.query('SELECT * FROM station')
-    .then((result) =>
-    {
-        res.render('book', { stations : result});
-    })
-    .catch((err) =>
-    {
+router.get('/book/:train_id/:arrival_time/:date/:from_station/:to_station', (req, res) =>
+{    
+    //GET AMOUNT OF FREE SEATS + PRICE OF SEAT
+    db.query(`SELECT * FROM station WHERE id =${req.params.from_station} LIMIT 1`)
+    .then((from_station) =>{
+        db.query(`SELECT * FROM station WHERE id =${req.params.to_station} LIMIT 1`)
+        .then((to_station) =>{
+            res.render('book', {train: req.params.train_id, departureDate : req.params.date, departureTime:req.params.arrival_time, departureStation: from_station[0].name, arrivalStation:to_station[0].name});
+        }).catch((err) =>{
+            res.json(err);
+        });
+    }).catch((err) =>{
         res.json(err);
-    })
+    });
+    
 });
 
 router.post('/', (req, res) =>

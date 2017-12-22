@@ -149,7 +149,13 @@
                                         +'<td>'+response.data[i].train_id+'</td>'
                                         +'<td>'+response.data[i].arrival_time+'</td>'
                                         //+'<td>'+response.data[i].departure_time+'</td>'
-                                        +'<td><a class="waves-effect waves-light btn">Book</a></td>'
+                                        +'<td><a href="/book'
+                                            +'/'+response.data[i].train_id
+                                            +'/'+response.data[i].arrival_time
+                                            +'/'+_date.value
+                                            +'/'+_from_station[_from_station.selectedIndex].value
+                                            +'/'+_to_station[_to_station.selectedIndex].value                                           
+                                            +'" class="waves-effect waves-light btn">Book</a></td>'
                                     +'</tr>';
                             /*
                             '<li>'
