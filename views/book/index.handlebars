@@ -53,6 +53,8 @@
                                     </h3>
                                 </div>
                             </div>
+                            <hr>
+                            <br>
                             <div class="row">
                                 <div class="div-inline">
                                     <div class="col s4">
@@ -60,17 +62,17 @@
                                             Child: 
                                         </div>
                                         <div  class="col s8">
-                                            $<span id="child_price">20</span>
+                                            $<span id="child_price_regular">20</span><span id="child_price_business" hidden="true">40</span>
                                         </div>
                                         <div class="input-field inline">
-                                            <select id='_children' onchange="priceChange()" required>
-                                                <option value="children0">0</option>
-                                                <option value="children1">1</option>
-                                                <option value="children2">2</option>
-                                                <option value="children3">3</option>
-                                                <option value="children4">4</option>
-                                                <option value="children5">5</option>
-                                                <option value="children6">6</option>
+                                            <select id='_children' name="children" onchange="priceChange()" required>
+                                                <option value="0">0</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
                                             </select>
                                         </div>
                                     </div>
@@ -82,17 +84,17 @@
                                             Adult: 
                                         </div>
                                         <div  class="col s8">
-                                            $<span id="adult_price">35</span>
+                                            $<span id="adult_price_regular">35</span><span id="adult_price_business" hidden="true">55</span>
                                         </div>
                                         <div class="input-field inline">
-                                            <select id='_adult' onchange="priceChange()" required>
-                                                <option value="adult0">0</option>
-                                                <option value="adult1">1</option>
-                                                <option value="adult2">2</option>
-                                                <option value="adult3">3</option>
-                                                <option value="adult4">4</option>
-                                                <option value="adult5">5</option>
-                                                <option value="adult6">6</option>
+                                            <select id='_adult' name="adult" onchange="priceChange()" required>
+                                                <option value="0">0</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
                                             </select>
                                         </div>
                                     </div>
@@ -105,19 +107,102 @@
                                             Senior(65+): 
                                         </div>
                                         <div class="col s5">
-                                            $<span id="senior_price">25</span>
+                                            $<span id="senior_price_regular">25</span><span id="senior_price_business" hidden="true">45</span>
                                         </div>
                                         <div class="input-field inline">
-                                            <select id='_senior' onchange="priceChange()" required>
-                                                <option value="senior0">0</option>
-                                                <option value="senior1">1</option>
-                                                <option value="senior2">2</option>
-                                                <option value="senior3">3</option>
-                                                <option value="senior4">4</option>
-                                                <option value="senior5">5</option>
-                                                <option value="senior6">6</option>
+                                            <select id='_senior' name="senior" onchange="priceChange()" required>
+                                                <option value="0">0</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
                                             </select>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="div-inline">
+                                        <div class="col s4 offset-s1">
+                                            <div class="col s7">
+                                                Military: 
+                                            </div>
+                                            <div class="col s5">
+                                                $<span id="military_price_regular">25</span><span id="military_price_business" hidden="true">45</span>
+                                            </div>
+                                            <div class="input-field inline">
+                                                <select id='_military' name="military" onchange="priceChange()" required>
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="div-inline">
+                                        <div class="col s4 offset-s2" id="no_pets" >
+                                            <div class="col s7">
+                                                Pet: 
+                                            </div>
+                                            <div class="col s5">
+                                                $<span id="pet_price">10</span>
+                                            </div>
+                                            <div class="input-field inline">
+                                                <select id='_pet' name ="pet" onchange="priceChange()" required>
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>                                
+                                </div>
+                                <div class="row">
+                                    <div class="col s3 offset-s3 right-align">
+                                            <input name="class_type" type="radio" id="regular" value="regular" checked="" onchange="priceChange()" required />
+                                            <label for="regular">Regular</label>
+                                    </div>
+                                    <div class="col s3">
+                                            <input name="class_type" type="radio" id="business" value="business" onchange="priceChange()"/>
+                                            <label for="business">Business </label>
+                                    </div>         
+                                </div>
+                                <hr>
+                                <br>
+                                <div>
+                                    <div class="input-field col s6">
+                                        <input id="first_name" type="text" class="validate">
+                                        <label for="first_name">First Name</label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="input-field col s6">
+                                        <input id="last_name" type="text" class="validate">
+                                        <label for="last_name">Last Name</label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="input-field col s12">
+                                        <input id="email" type="email" class="validate" >
+                                        <label for="email">Email</label>
+                                    </div>
+                                </div>
+                                <br>
+                                <br>
+                                <label>Payment Info</label>
+                                <div>
+                                    <div class="input-field col s12">
+                                        <input type="text" name="creditCardNumber" id ="creditCard" maxlength="16" placeholder="4111 1111 1111 1111" required>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="input-field col s12">
+                                        <input type="text" name="cvv" maxlength="3" placeholder="CVV" required>
                                     </div>
                                 </div>
                             </div>
@@ -136,20 +221,56 @@
             $('select').material_select();
         });
         function priceChange(){
-            let number_of_senior = document.getElementById('_senior').value;
-            let number_of_children = document.getElementById('_children').value;
-            let number_of_adult = document.getElementById('_adult').value;
+            var total =0;
+            if($('#business').prop('checked')){
+                $('#no_pets').attr("hidden", "true");
+                $('#senior_price_regular').attr("hidden", "true");
+                $('#senior_price_business').removeAttr('hidden');
+                $('#child_price_regular').attr("hidden", "true");
+                $('#child_price_business').removeAttr('hidden');
+                $('#military_price_regular').attr("hidden", "true");
+                $('#military_price_business').removeAttr('hidden');
+                $('#adult_price_regular').attr("hidden", "true");
+                $('#adult_price_business').removeAttr('hidden');
 
-            number_of_adult = (number_of_adult.charAt(number_of_adult.length-1));
-            number_of_children = (number_of_children.charAt(number_of_children.length-1));
-            number_of_senior = (number_of_senior.charAt(number_of_senior.length-1));
 
-            let price_for_senior = document.getElementById('senior_price').innerHTML;
-            let price_for_children = document.getElementById('child_price').innerHTML;
-            let price_for_adult = document.getElementById('adult_price').innerHTML;
+                let number_of_senior = document.getElementById('_senior').value;
+                let number_of_children = document.getElementById('_children').value;
+                let number_of_adult = document.getElementById('_adult').value;
+                let number_of_military = document.getElementById('_military').value;
 
-            var total = (number_of_senior*price_for_senior) + (number_of_children*price_for_children) +(number_of_adult*price_for_adult);
+                let price_for_senior = document.getElementById('senior_price_business').innerHTML;
+                let price_for_children = document.getElementById('child_price_business').innerHTML;
+                let price_for_adult = document.getElementById('adult_price_business').innerHTML;
+                let price_for_military = document.getElementById('military_price_business').innerHTML;
 
+                total = (number_of_senior*price_for_senior) + (number_of_children*price_for_children) +(number_of_adult*price_for_adult) +(price_for_military*number_of_military) ;
+            }
+            else{
+                $('#no_pets').removeAttr('hidden');
+                $('#senior_price_business').attr("hidden", "true");
+                $('#senior_price_regular').removeAttr('hidden');
+                $('#child_price_business').attr("hidden", "true");
+                $('#child_price_regular').removeAttr('hidden');
+                $('#military_price_business').attr("hidden", "true");
+                $('#military_price_regular').removeAttr('hidden');
+                $('#adult_price_business').attr("hidden", "true");
+                $('#adult_price_regular').removeAttr('hidden');
+
+                let number_of_senior = document.getElementById('_senior').value;
+                let number_of_children = document.getElementById('_children').value;
+                let number_of_adult = document.getElementById('_adult').value;
+                let number_of_military = document.getElementById('_military').value;
+                let number_of_pet = document.getElementById('_pet').value;
+
+                let price_for_senior = document.getElementById('senior_price_regular').innerHTML;
+                let price_for_children = document.getElementById('child_price_regular').innerHTML;
+                let price_for_adult = document.getElementById('adult_price_regular').innerHTML;
+                let price_for_military = document.getElementById('military_price_regular').innerHTML;
+                let price_for_pet = document.getElementById('pet_price').innerHTML;
+
+                total = (number_of_senior*price_for_senior) + (number_of_children*price_for_children) +(number_of_adult*price_for_adult) +(price_for_military*number_of_military) +(number_of_pet*price_for_pet);
+            }
 
             document.getElementById('total').innerHTML = 'Total: $'+total;
 

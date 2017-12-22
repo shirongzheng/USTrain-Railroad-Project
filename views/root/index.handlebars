@@ -24,6 +24,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <br>
 
                         <div class="row">
@@ -79,11 +80,18 @@
             <div class="col s5 offset-s2">
                 <div class="card-panel" >
                     <table id = '_trains' class="striped"></table>
+                    <div class="container" >
+                        <div id="card-alert-date" class="card red lighten-5" hidden="true">
+                            <div class="card-content red-text">
+                                <p><center>Invalid Date</center></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="container" >
-            <div id="card-alert" class="card red lighten-5" hidden="true">
+            <div id="card-alert-information" class="card red lighten-5" hidden="true">
                 <div class="card-content red-text">
                     <p><center>Please fill out all the information</center></p>
                 </div>
@@ -105,7 +113,10 @@
             mm='0'+mm
         } 
         today = yyyy +'-'+mm+'-'+dd;
+        in_a_year = (yyyy+1) +'-'+mm+'-'+dd;
         $('#_date').attr("value",today);
+        $('#_date').attr("min",today);
+        $('#_date').attr("max",in_a_year);
 
         let _date = document.getElementById('_date');
         let _time = document.getElementById('_time');
@@ -118,8 +129,12 @@
         _submit.addEventListener('click', (event) =>
         {
             event.preventDefault();
-            if(_date.value.length > 0)
-            {
+            if(_date.value < today || _date.value > in_a_year){
+                console.log("ERROR")
+                $('#card-alert-date').removeAttr('hidden');
+                _trains.innerHTML = '<tr></tr>';
+            }else if(_date.value.length > 0){
+                $('#card-alert-date').attr("hidden", "true");
                 //_information.innerHTML = '';
                 axios.post
                 (
@@ -169,7 +184,7 @@
                                 '</tbody>';
 
                     _trains.innerHTML = inner;
-                    $('#card-alert').attr("hidden", "true");
+                    $('#card-alert-information').attr("hidden", "true");
                 })
                 .catch((err) =>
                 {
@@ -178,7 +193,7 @@
             }
             else
             {
-                $('#card-alert').removeAttr('hidden');
+                $('#card-alert-information').removeAttr('hidden');
                 //_information.innerHTML = 'Please fill out all the information';
             }
         });
