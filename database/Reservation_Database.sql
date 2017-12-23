@@ -1,8 +1,4 @@
-CREATE DATABASE IF NOT EXISTS 'Reservation' 
-USE 'Reservation';
 
-SET GLOBAL innodb_file_per_table=1;
-SET GLOBAL innodb_file_format=barracuda;
 
 CREATE TABLE IF NOT EXISTS 'train' (
   'train_id' int(11) NOT NULL,
