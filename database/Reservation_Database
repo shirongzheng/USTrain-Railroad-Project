@@ -1,13 +1,17 @@
 CREATE DATABASE IF NOT EXISTS `reservation` 
 USE `reservation`;
 
+SET GLOBAL innodb_file_per_table=1;
+SET GLOBAL innodb_file_format=barracuda;
+
+
 CREATE TABLE IF NOT EXISTS `free_seats` (
-  `fs_train_id` int(11) NOT NULL,
-  `fs_seg_id` int(11) NOT NULL,
-  `fs_date` date NOT NULL,
-  `fs_freeseat` int(11) NOT NULL,
-  PRIMARY KEY (`fs_train_id`,`fs_seg_id`,`fs_date`),
-  KEY `fs_seg_id` (`fs_seg_id`),
-  CONSTRAINT `free_seats_ibfk_2` FOREIGN KEY (`fs_seg_id`) REFERENCES `segments` (`seg_id`),
-  CONSTRAINT `free_seats_ibfk_3` FOREIGN KEY (`fs_train_id`) REFERENCES `trains` (`train_id`)
+  `train_id` int(11) NOT NULL,
+  `seg_id` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `seats_free` int(11) NOT NULL,
+  PRIMARY KEY (`train_id`,`seg_id`,`date`),
+  KEY `seg_id` (`seg_id`),
+  CONSTRAINT `free_seats1` FOREIGN KEY (`seg_id`) REFERENCES `segments` (`seg_id`),
+  CONSTRAINT `free_seats2` FOREIGN KEY (`train_id`) REFERENCES `trains` (`train_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
