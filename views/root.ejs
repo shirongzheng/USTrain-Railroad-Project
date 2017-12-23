@@ -3,10 +3,23 @@
     <meta charset="UTF-8">
     <title>Home</title>
     <script src='axios.min.js'></script>
+    <style>
+        .train_info
+        {
+            border-left: 0.1em solid #ddd;
+            padding: 1%;
+        }
+    </style>
 </head>
 <body>
     <form>
-    Departure date: <input id='_date' type='date' required>
+    Departure date:
+    <? if(locals.remember.date) { ?>
+        <input id='_date' value='<?= locals.remember.date ?>'type='date' required>
+    <? } else { ?>
+        <input id='_date' type='date' required>
+    <? } ?>
+
     <br>
     Departure time: <select id='_time' required>
         <option value="any">Any Time</option>
@@ -17,22 +30,30 @@
     <br>
     Departure station: <select id='_from_station' required>
     <? for(let i = 0; i < stations.length; ++i) { ?>
-        <option value='<?= i+1 ?>'><?= stations[i].name ?></option>
+        <? if(locals.remember.from_station && i+1 == locals.remember.from_station) { ?>
+            <option value='<?= i+1 ?>' selected><?= stations[i].name ?></option>
+        <? } else { ?>
+            <option value='<?= i+1 ?>'><?= stations[i].name ?></option>
+        <? } ?>
     <? } ?>
     </select>
     <br>
     Arrival station: <select id='_to_station' required>
     <? for(let i = stations.length-1; i >= 0; --i) { ?>
-        <option value='<?= i+1 ?>'><?= stations[i].name ?></option>
+        <? if(locals.remember.to_station && i+1 == locals.remember.to_station) { ?>
+            <option value='<?= i+1 ?>' selected><?= stations[i].name ?></option>
+        <? } else { ?>
+            <option value='<?= i+1 ?>'><?= stations[i].name ?></option>
+        <? } ?>
     <? } ?>
     </select>
     <br>
     <button id='_submit' type='submit'>Show Availabilities</button>
     </form>
     <div id='_information'></div>
-    <ul id='_trains'>
+    <div id='_trains'>
 
-    </ul>
+    </div>
     <script>
         let _date = document.getElementById('_date');
         let _time = document.getElementById('_time');
@@ -67,14 +88,20 @@
                     for(let i = 0; i < response.data.trains.length; ++i)
                     {
                         inner +=
-                            '<li>'
+                            '<div class="train_info">'
                                 + '<b>Train: </b>'
                                 + response.data.trains[i].train_id
                                 + '<br><b>Arrival time: </b>'
                                 + response.data.trains[i].arrival_time
-                                // + '<br><b>Departure time: </b>'
-                                // + response.data.trains[i].departure_time +
-                            '</li>\n';
+                                +
+`
+<br>
+<form method='post' action='/make_reservation'>
+    <input type='hidden' value='${response.data.trains[i].train_id}' name='train_id'>
+    <button type='submit'>Make Reservation</button>
+</form>`
+                                +
+                            '</div>\n';
                     }
                     _trains.innerHTML = inner;
                     _information.innerHTML = '<br><b>Base fare: </b>$'

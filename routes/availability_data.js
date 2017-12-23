@@ -11,6 +11,11 @@ router.post('/availability_data', (req, res) =>
         else        schedule += '_';
     }
 
+    req.session.date = req.body.date;
+    req.session.schedule = schedule;
+    req.session.from_station = req.body.from_station;
+    req.session.to_station = req.body.to_station;
+
     let additional_query = '';
 
     if(req.body.time === 'morning')
@@ -79,6 +84,9 @@ router.post('/availability_data', (req, res) =>
             base_fare += Number(result[i].base_fare);
             distance += Number(result[i].distance);
         }
+
+        req.session.base_fare = base_fare;
+        req.session.distance = distance;
 
         return db.query(query2);
     })
