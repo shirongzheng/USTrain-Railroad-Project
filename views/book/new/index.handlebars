@@ -68,7 +68,7 @@
                                             Child: 
                                         </div>
                                         <div  class="col s8">
-                                            $<span id="child_price_regular">20</span><span id="child_price_business" hidden="true">40</span>
+                                            $<span id="child_price_regular">20</span><span id="child_price_first_class" hidden="true">40</span>
                                         </div>
                                         <div class="input-field inline">
                                             <select id='_children' name="children" onchange="priceChange()" required>
@@ -90,7 +90,7 @@
                                             Adult: 
                                         </div>
                                         <div  class="col s8">
-                                            $<span id="adult_price_regular">35</span><span id="adult_price_business" hidden="true">55</span>
+                                            $<span id="adult_price_regular">35</span><span id="adult_price_first_class" hidden="true">55</span>
                                         </div>
                                         <div class="input-field inline">
                                             <select id='_adult' name="adult" onchange="priceChange()" required>
@@ -113,7 +113,7 @@
                                             Senior(65+): 
                                         </div>
                                         <div class="col s5">
-                                            $<span id="senior_price_regular">25</span><span id="senior_price_business" hidden="true">45</span>
+                                            $<span id="senior_price_regular">25</span><span id="senior_price_first_class" hidden="true">45</span>
                                         </div>
                                         <div class="input-field inline">
                                             <select id='_senior' name="senior" onchange="priceChange()" required>
@@ -135,7 +135,7 @@
                                                 Military: 
                                             </div>
                                             <div class="col s5">
-                                                $<span id="military_price_regular">25</span><span id="military_price_business" hidden="true">45</span>
+                                                $<span id="military_price_regular">25</span><span id="military_price_first_class" hidden="true">45</span>
                                             </div>
                                             <div class="input-field inline">
                                                 <select id='_military' name="military" onchange="priceChange()" required>
@@ -174,8 +174,8 @@
                                             <label for="regular">Regular</label>
                                     </div>
                                     <div class="col s3">
-                                            <input name="class_type" type="radio" id="business" value="business" onchange="priceChange()"/>
-                                            <label for="business">Business </label>
+                                            <input name="class_type" type="radio" id="first_class" value="first_class" onchange="priceChange()"/>
+                                            <label for="first_class">First Class </label>
                                     </div>         
                                 </div>
                                 <hr>
@@ -233,16 +233,16 @@
         });
         function priceChange(){
             var total =0;
-            if($('#business').prop('checked')){
+            if($('#first_class').prop('checked')){
                 $('#no_pets').attr("hidden", "true");
                 $('#senior_price_regular').attr("hidden", "true");
-                $('#senior_price_business').removeAttr('hidden');
+                $('#senior_price_first_class').removeAttr('hidden');
                 $('#child_price_regular').attr("hidden", "true");
-                $('#child_price_business').removeAttr('hidden');
+                $('#child_price_first_class').removeAttr('hidden');
                 $('#military_price_regular').attr("hidden", "true");
-                $('#military_price_business').removeAttr('hidden');
+                $('#military_price_first_class').removeAttr('hidden');
                 $('#adult_price_regular').attr("hidden", "true");
-                $('#adult_price_business').removeAttr('hidden');
+                $('#adult_price_first_class').removeAttr('hidden');
 
 
                 let number_of_senior = document.getElementById('_senior').value;
@@ -250,22 +250,22 @@
                 let number_of_adult = document.getElementById('_adult').value;
                 let number_of_military = document.getElementById('_military').value;
 
-                let price_for_senior = document.getElementById('senior_price_business').innerHTML;
-                let price_for_children = document.getElementById('child_price_business').innerHTML;
-                let price_for_adult = document.getElementById('adult_price_business').innerHTML;
-                let price_for_military = document.getElementById('military_price_business').innerHTML;
+                let price_for_senior = document.getElementById('senior_price_first_class').innerHTML;
+                let price_for_children = document.getElementById('child_price_first_class').innerHTML;
+                let price_for_adult = document.getElementById('adult_price_first_class').innerHTML;
+                let price_for_military = document.getElementById('military_price_first_class').innerHTML;
 
                 total = (number_of_senior*price_for_senior) + (number_of_children*price_for_children) +(number_of_adult*price_for_adult) +(price_for_military*number_of_military) ;
             }
             else{
                 $('#no_pets').removeAttr('hidden');
-                $('#senior_price_business').attr("hidden", "true");
+                $('#senior_price_first_class').attr("hidden", "true");
                 $('#senior_price_regular').removeAttr('hidden');
-                $('#child_price_business').attr("hidden", "true");
+                $('#child_price_first_class').attr("hidden", "true");
                 $('#child_price_regular').removeAttr('hidden');
-                $('#military_price_business').attr("hidden", "true");
+                $('#military_price_first_class').attr("hidden", "true");
                 $('#military_price_regular').removeAttr('hidden');
-                $('#adult_price_business').attr("hidden", "true");
+                $('#adult_price_first_class').attr("hidden", "true");
                 $('#adult_price_regular').removeAttr('hidden');
 
                 let number_of_senior = document.getElementById('_senior').value;
