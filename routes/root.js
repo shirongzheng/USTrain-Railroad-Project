@@ -19,6 +19,12 @@ router.get('/reservations', (req, res) =>
     res.render('reservation/lookUp');
 });
 
+router.post('/reservations', (req, res) =>
+{
+    //LOOK UP THE RESERVSTION IN DB
+    res.render('reservation/show');
+});
+
 router.get('/book/:train_id/:arrival_time/:date/:from_station/:to_station', (req, res) =>
 {    
     //NEEDS TO BE DONE ->GET AMOUNT OF FREE SEATS + PRICE OF SEAT
