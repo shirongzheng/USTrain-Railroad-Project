@@ -1,0 +1,14 @@
+CREATE DATABASE IF NOT EXISTS `reservation` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `reservation`;
+
+-- Dumping structure for table reservation.free_seats
+CREATE TABLE IF NOT EXISTS `free_seats` (
+  `fs_train_id` int(11) NOT NULL,
+  `fs_seg_id` int(11) NOT NULL,
+  `fs_date` date NOT NULL,
+  `fs_freeseat` int(11) NOT NULL,
+  PRIMARY KEY (`fs_train_id`,`fs_seg_id`,`fs_date`),
+  KEY `fs_seg_id` (`fs_seg_id`),
+  CONSTRAINT `free_seats_ibfk_2` FOREIGN KEY (`fs_seg_id`) REFERENCES `segments` (`seg_id`),
+  CONSTRAINT `free_seats_ibfk_3` FOREIGN KEY (`fs_train_id`) REFERENCES `trains` (`train_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
