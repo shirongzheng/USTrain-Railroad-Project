@@ -1,7 +1,6 @@
-CREATE DATABASE IF NOT EXISTS `reservation` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE IF NOT EXISTS `reservation` 
 USE `reservation`;
 
--- Dumping structure for table reservation.free_seats
 CREATE TABLE IF NOT EXISTS `free_seats` (
   `fs_train_id` int(11) NOT NULL,
   `fs_seg_id` int(11) NOT NULL,
