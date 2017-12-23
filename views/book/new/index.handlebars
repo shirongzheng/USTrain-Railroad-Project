@@ -17,7 +17,8 @@
                 <div class="card-panel" >
                     <h4 class="card-title center">Book Trip</h4>
                     <hr>
-                        <form>
+                        {{!-- <form> --}}
+                        <form class="new_reservation" name="new_reservation" action="/reservation/new" method="post" >
                             <div class="row">
                                 <div class="col s6">
                                     <div class="row">
@@ -213,7 +214,7 @@
                             </div>
                             <input type="hidden" id="totalPrice" name="totalPrice" value="0">
                         <center >
-                            <button class="btn waves-effect waves-light amber darken-1" type="submit" id="_submit" onclick=confirmPay()>Book
+                            <button class="btn waves-effect waves-light amber darken-1" type="submit" id="_submit">Book
                             </button>
                         </center>
                     </form>
@@ -223,7 +224,7 @@
     </div>
 
     <script>
-    
+
         function forceLower(strInput) {
             strInput.value=strInput.value.toLowerCase();
         }
@@ -242,14 +243,18 @@
                 $('#military_price_business').removeAttr('hidden');
                 $('#adult_price_regular').attr("hidden", "true");
                 $('#adult_price_business').removeAttr('hidden');
+
+
                 let number_of_senior = document.getElementById('_senior').value;
                 let number_of_children = document.getElementById('_children').value;
                 let number_of_adult = document.getElementById('_adult').value;
                 let number_of_military = document.getElementById('_military').value;
+
                 let price_for_senior = document.getElementById('senior_price_business').innerHTML;
                 let price_for_children = document.getElementById('child_price_business').innerHTML;
                 let price_for_adult = document.getElementById('adult_price_business').innerHTML;
                 let price_for_military = document.getElementById('military_price_business').innerHTML;
+
                 total = (number_of_senior*price_for_senior) + (number_of_children*price_for_children) +(number_of_adult*price_for_adult) +(price_for_military*number_of_military) ;
             }
             else{
@@ -262,30 +267,26 @@
                 $('#military_price_regular').removeAttr('hidden');
                 $('#adult_price_business').attr("hidden", "true");
                 $('#adult_price_regular').removeAttr('hidden');
+
                 let number_of_senior = document.getElementById('_senior').value;
                 let number_of_children = document.getElementById('_children').value;
                 let number_of_adult = document.getElementById('_adult').value;
                 let number_of_military = document.getElementById('_military').value;
                 let number_of_pet = document.getElementById('_pet').value;
+
                 let price_for_senior = document.getElementById('senior_price_regular').innerHTML;
                 let price_for_children = document.getElementById('child_price_regular').innerHTML;
                 let price_for_adult = document.getElementById('adult_price_regular').innerHTML;
                 let price_for_military = document.getElementById('military_price_regular').innerHTML;
                 let price_for_pet = document.getElementById('pet_price').innerHTML;
+
                 total = (number_of_senior*price_for_senior) + (number_of_children*price_for_children) +(number_of_adult*price_for_adult) +(price_for_military*number_of_military) +(number_of_pet*price_for_pet);
             }
+
             $('#totalPrice').removeAttr('value');
             $('#totalPrice').attr("value", total);
             document.getElementById('total').innerHTML = 'Total: $'+total;
-        }
-        
-        function confirmPay(){
-           alert("Successfully Booked！");  
-        }
-        
-        function confirmPay(){
-           alert("Successfully Booked！");  
-        }
 
+        }
     </script>
 </body>
