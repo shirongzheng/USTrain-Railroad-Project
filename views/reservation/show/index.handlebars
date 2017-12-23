@@ -9,19 +9,28 @@
             <div class="section"></div>
             <div class="section"></div>
             <div class="col s6 offset-s3" >
-                <div class="card-panel" >
-                    <h4 class="card-title">Reservation</h4>
-                    <p class="align-right">{{reservation.id}}</p>
-                    <hr>
-                    <h5> Trip data</h5>
-                    <p> Trip Date: {{reservation.on_date}}</p>
-                    
-                    <p> Trip fare: {{reservation.total_fare}}</p>
+                {{#if reservation}}
+                    <div class="card-panel" >
+                        <h4 class="card-title">Reservation</h4>
+                        <p class="align-right">{{reservation.id}}</p>
+                        <hr>
+                        <h5> Trip data</h5>
+                        <p> Trip Date: {{reservation.on_date}}</p>
+                        
+                        <p> Trip fare: {{reservation.total_fare}}</p>
 
-                    <center>
-                        <button class="btn waves-effect waves-light red darken-3" id="_delete">Delete reservation</button>
-                    </center>
-                </div>
+                        <center>
+                            <button class="btn waves-effect waves-light red darken-3" id="_delete">Delete reservation</button>
+                        </center>
+                    </div>
+                {{else}}
+                    <div class="card-panel center card red lighten-5">
+                        <h3 class="card-title">Reservation look up failed</h3>
+                        <h5 class="center">Please try again<h5>
+                        <hr>
+                        <a href="/reservation/lookUp"class="waves-effect waves-light amber darken-2 btn">OK</a>
+                    </div>
+                {{/if}}
             </div>
         </div>
     </div>
