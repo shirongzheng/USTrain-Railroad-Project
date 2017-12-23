@@ -11,8 +11,16 @@
             <div class="col s6 offset-s3" >
                 <div class="card-panel" >
                     <h4 class="card-title">Reservation</h4>
+                    <p class="align-right">{{reservation.id}}</p>
                     <hr>
                     <h5> Trip data</h5>
+                    <p> Trip Date: {{reservation.on_date}}</p>
+                    
+                    <p> Trip fare: {{reservation.total_fare}}</p>
+
+                    <center>
+                        <button class="btn waves-effect waves-light red darken-3" id="_delete">Delete reservation</button>
+                    </center>
                 </div>
             </div>
         </div>
