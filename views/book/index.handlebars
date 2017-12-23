@@ -3,6 +3,11 @@
     <title>Home</title>
     <script src='axios.min.js'></script>
 </head>
+<style>
+    #first_name,#last_name,#email {
+        text-transform:lowercase;
+    }
+</style>
 <body>
     <div class="container">
         <div class="row">
@@ -176,19 +181,19 @@
                                 <br>
                                 <div>
                                     <div class="input-field col s6">
-                                        <input id="first_name" type="text" name="first_name" class="validate" required>
+                                        <input id="first_name" type="text" name="first_name" onkeyup="return forceLower(this);"  class="validate" required>
                                         <label for="first_name">First Name</label>
                                     </div>
                                 </div>
                                 <div>
                                     <div class="input-field col s6">
-                                        <input id="last_name" type="text" name="last_name" class="validate" required>
+                                        <input id="last_name" type="text" name="last_name" onkeyup="return forceLower(this);"  class="validate" required>
                                         <label for="last_name">Last Name</label>
                                     </div>
                                 </div>
                                 <div>
                                     <div class="input-field col s12">
-                                        <input id="email" type="email" name="email"class="validate" required>
+                                        <input id="email" type="email" name="email" onkeyup="return forceLower(this);"  class="validate" required>
                                         <label for="email">Email</label>
                                     </div>
                                 </div>
@@ -218,6 +223,10 @@
     </div>
 
     <script>
+    
+        function forceLower(strInput) {
+            strInput.value=strInput.value.toLowerCase();
+        }
         $(document).ready(function() {
             $('select').material_select();
         });
