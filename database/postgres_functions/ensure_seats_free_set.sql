@@ -15,14 +15,16 @@ BEGIN
             train_id,
             segment_id,
             of_date,
-            num_of_free_seats
+            num_of_free_seats,
+            first_class_seats
         )
         VALUES
         (
             _train_id,
             _segment_id,
             _of_date,
-            448
+            448,
+            64
         );
     EXCEPTION WHEN OTHERS THEN
         RETURN;
