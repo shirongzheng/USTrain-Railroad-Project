@@ -68,7 +68,7 @@
                                             Child: 
                                         </div>
                                         <div  class="col s8">
-                                            $<span id="child_price_regular">20</span><span id="child_price_first_class" hidden="true">40</span>
+                                            $<span id="child_price_regular">{{child_reqular}}</span><span id="child_price_first_class" hidden="true">{{child_first_class}}</span>
                                         </div>
                                         <div class="input-field inline">
                                             <select id='_children' name="children" onchange="priceChange()" required>
@@ -90,7 +90,7 @@
                                             Adult: 
                                         </div>
                                         <div  class="col s8">
-                                            $<span id="adult_price_regular">35</span><span id="adult_price_first_class" hidden="true">55</span>
+                                            $<span id="adult_price_regular">{{adult_reqular}}</span><span id="adult_price_first_class" hidden="true">{{adult_first_class}}</span>
                                         </div>
                                         <div class="input-field inline">
                                             <select id='_adult' name="adult" onchange="priceChange()" required>
@@ -113,7 +113,7 @@
                                             Senior(65+): 
                                         </div>
                                         <div class="col s5">
-                                            $<span id="senior_price_regular">25</span><span id="senior_price_first_class" hidden="true">45</span>
+                                            $<span id="senior_price_regular">{{senior_reqular}}</span><span id="senior_price_first_class" hidden="true">{{senior_first_class}}</span>
                                         </div>
                                         <div class="input-field inline">
                                             <select id='_senior' name="senior" onchange="priceChange()" required>
@@ -135,7 +135,7 @@
                                                 Military: 
                                             </div>
                                             <div class="col s5">
-                                                $<span id="military_price_regular">25</span><span id="military_price_first_class" hidden="true">45</span>
+                                                $<span id="military_price_regular">{{military_reqular}}</span><span id="military_price_first_class" hidden="true">{{military_first_class}}</span>
                                             </div>
                                             <div class="input-field inline">
                                                 <select id='_military' name="military" onchange="priceChange()" required>
@@ -156,7 +156,7 @@
                                                 Pet: 
                                             </div>
                                             <div class="col s5">
-                                                $<span id="pet_price">10</span>
+                                                $<span id="pet_price">{{pet_reqular}}</span>
                                             </div>
                                             <div class="input-field inline">
                                                 <select id='_pet' name ="pet" onchange="priceChange()" required>
