@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Make Reservation</title>
+    <script src='axios.min.js'></script>
+</head>
+<body>
+    <h1>Trip Information</h1>
+    <b>Selected Train: </b> <?= train_id ?>
+    <br>
+    <b>Date: </b><?= date ?>
+    <br>
+    <b>Start Station: </b><?= from_station_name ?>
+    <br>
+    <b>End Station: </b><?= to_station_name ?>
+    <br>
+    <b>Base Fare: </b>$<?= base_fare ?>
+    <br><b>Distance: </b><?= distance ?> miles
+    <br>
+    <b>Do you have a user id?</b>
+    <select id='_is_old_user' required>
+        <option disabled selected value style='display: none'></option>
+        <option value='0'>No</option>
+        <option value='1'>Yes</option>
+    </select>
+    <span id='_if_old_user' style='display: none'>
+        <form action='/checkout' method='post'>
+            <input type='text' name='user_id'>
+            <button type='submit'>Submit</button>
+        </form>
+    </span>
+    <span id='_if_new_user' style='display: none'>
+        </form action='/checkout' method='post'>
+            <button type='submit'>Submit</button>
+        </form>
+    </span>
+    <br>
+    <br>
+    <a
+        href='/'
+        style='
+            text-decoration: none;
+            border-bottom: 0.1em solid #DDD;
+            color: #000'>&lt;-- Change Info</a>
+    <script>
+        // TODO
+    </script>
+</body>
