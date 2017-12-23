@@ -12,7 +12,8 @@ router.get('/make_reservation', (req, res) =>
         req.session.to_station === undefined ||
         req.session.base_fare === undefined ||
         req.session.distance === undefined ||
-        req.session.train_id === undefined
+        req.session.train_id === undefined ||
+        req.session.is_first_class_seats_free === undefined
     )
     {
         return res.redirect(301, '/');
@@ -27,6 +28,7 @@ router.get('/make_reservation', (req, res) =>
     obj.train_id = req.session.train_id;
     obj.base_fare = req.session.base_fare;
     obj.distance = req.session.distance;
+    obj.is_first_class_seats_free = req.session.is_first_class_seats_free;
 
     db.query
     (
@@ -52,6 +54,7 @@ router.get('/make_reservation', (req, res) =>
 router.post('/make_reservation', (req, res) =>
 {
     req.session.train_id = req.body.train_id;
+    req.session.is_first_class_seats_free = req.body.is_first_class_seats_free;
     res.redirect(301, '/make_reservation');
 });
 

@@ -129,7 +129,11 @@ router.post('/availability_data', (req, res) =>
                     db.one
                     (
                         `
-                        SELECT train_id, num_of_free_seats FROM seats_free
+                        SELECT
+                            train_id,
+                            num_of_free_seats,
+                            first_class_seats
+                        FROM seats_free
                         WHERE
                             train_id=${query_2_result[i].train_id} AND
                             segment_id=${segments[k].id} AND
@@ -146,12 +150,20 @@ router.post('/availability_data', (req, res) =>
     {
         seats_free = result;
         let s_f_i = 0; // seats_free index
+        let s_f_i2 = 0; // seats_free index
         for(let i = 0; i < query_2_result.length; ++i)
         {
             let is_seats_free = true;
+            let is_first_class_seats_free = true;
             for(let m = 0; m < segments.length; ++m)
-                if(seats_free[s_f_i++].num_of_free_seats <= 0) is_seats_free = false;
+            {
+                if(seats_free[s_f_i++].num_of_free_seats <= 0)
+                    is_seats_free = false;
+                if(seats_free[s_f_i2++].first_class_seats <= 0)
+                    is_first_class_seats_free = false;
+            }
             query_2_result[i].is_seats_free = is_seats_free;
+            query_2_result[i].is_first_class_seats_free = is_first_class_seats_free;
         }
     })
     .then(() =>

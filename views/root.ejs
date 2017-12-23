@@ -98,6 +98,8 @@
 <br>
 <form method='post' action='/make_reservation'>
     <input type='hidden' value='${response.data.trains[i].train_id}' name='train_id'>
+    <input type='hidden' value='${response.data.trains[i].is_first_class_seats_free}'
+        name='is_first_class_seats_free'>
     <button type='submit'>Make Reservation</button>
 </form>`
                                 +
