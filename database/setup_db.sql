@@ -88,8 +88,8 @@ CREATE TABLE segment_fare
 INSERT INTO segment_fare
 (
     segment_id,
-    seg_n_end 
-    seg_s_end
+    seg_n_end, 
+    seg_s_end,
     seg_fare
 )
 VALUES
