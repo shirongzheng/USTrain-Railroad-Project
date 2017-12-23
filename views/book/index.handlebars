@@ -1,0 +1,286 @@
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <script src='axios.min.js'></script>
+</head>
+<style>
+    #first_name,#last_name,#email {
+        text-transform:lowercase;
+    }
+</style>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="section"></div>
+            <div class="section"></div>
+            <div class="col s6 offset-s3" >
+                <div class="card-panel" >
+                    <h4 class="card-title center">Book Trip</h4>
+                    <hr>
+                        <form>
+                            <div class="row">
+                                <div class="col s6">
+                                    <div class="row">
+                                        <div class="col s12">
+                                            Departure date: {{departureDate}}
+                                        </div>
+                                    </div>
+                                    
+
+                                    <div class="row">
+                                        <div class="col s12">
+                                            Departure time: {{departureTime}}
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="row">
+                                        <div class="col s12">
+                                            Departure station: {{departureStation}}
+                                        </div>
+                                    </div>
+                                
+
+                                    <div class="row">
+                                        <div class="col s12">
+                                            Arrival station: {{arrivalStation}}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s12">
+                                            Train number: {{train}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s6">
+                                    <br>
+                                    <h3 id="total" class="center">
+                                        Total: $0
+                                    </h3>
+                                </div>
+                            </div>
+                            <hr>
+                            <br>
+                            <div class="row">
+                                <div class="div-inline">
+                                    <div class="col s4">
+                                        <div class="col s4">
+                                            Child: 
+                                        </div>
+                                        <div  class="col s8">
+                                            $<span id="child_price_regular">20</span><span id="child_price_business" hidden="true">40</span>
+                                        </div>
+                                        <div class="input-field inline">
+                                            <select id='_children' name="children" onchange="priceChange()" required>
+                                                <option value="0">0</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="div-inline">
+                                    <div class="col s4">
+                                        <div class="col s4">
+                                            Adult: 
+                                        </div>
+                                        <div  class="col s8">
+                                            $<span id="adult_price_regular">35</span><span id="adult_price_business" hidden="true">55</span>
+                                        </div>
+                                        <div class="input-field inline">
+                                            <select id='_adult' name="adult" onchange="priceChange()" required>
+                                                <option value="0">0</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+
+                                 <div class="div-inline">
+                                    <div class="col s4">
+                                        <div class="col s7">
+                                            Senior(65+): 
+                                        </div>
+                                        <div class="col s5">
+                                            $<span id="senior_price_regular">25</span><span id="senior_price_business" hidden="true">45</span>
+                                        </div>
+                                        <div class="input-field inline">
+                                            <select id='_senior' name="senior" onchange="priceChange()" required>
+                                                <option value="0">0</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="div-inline">
+                                        <div class="col s4 offset-s1">
+                                            <div class="col s7">
+                                                Military: 
+                                            </div>
+                                            <div class="col s5">
+                                                $<span id="military_price_regular">25</span><span id="military_price_business" hidden="true">45</span>
+                                            </div>
+                                            <div class="input-field inline">
+                                                <select id='_military' name="military" onchange="priceChange()" required>
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="div-inline">
+                                        <div class="col s4 offset-s2" id="no_pets" >
+                                            <div class="col s7">
+                                                Pet: 
+                                            </div>
+                                            <div class="col s5">
+                                                $<span id="pet_price">10</span>
+                                            </div>
+                                            <div class="input-field inline">
+                                                <select id='_pet' name ="pet" onchange="priceChange()" required>
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>                                
+                                </div>
+                                <div class="row">
+                                    <div class="col s3 offset-s3 right-align">
+                                            <input name="class_type" type="radio" id="regular" value="regular" checked="" onchange="priceChange()" required />
+                                            <label for="regular">Regular</label>
+                                    </div>
+                                    <div class="col s3">
+                                            <input name="class_type" type="radio" id="business" value="business" onchange="priceChange()"/>
+                                            <label for="business">Business </label>
+                                    </div>         
+                                </div>
+                                <hr>
+                                <br>
+                                <div>
+                                    <div class="input-field col s6">
+                                        <input id="first_name" type="text" name="first_name" onkeyup="return forceLower(this);"  class="validate" required>
+                                        <label for="first_name">First Name</label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="input-field col s6">
+                                        <input id="last_name" type="text" name="last_name" onkeyup="return forceLower(this);"  class="validate" required>
+                                        <label for="last_name">Last Name</label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="input-field col s12">
+                                        <input id="email" type="email" name="email" onkeyup="return forceLower(this);"  class="validate" required>
+                                        <label for="email">Email</label>
+                                    </div>
+                                </div>
+                                <br>
+                                <br>
+                                <label>Payment Info</label>
+                                <div>
+                                    <div class="input-field col s12">
+                                        <input type="text" name="creditCardNumber" id ="creditCard" maxlength="16" minlength="16" placeholder="4111 1111 1111 1111" required>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="input-field col s12">
+                                        <input type="text" name="cvv" maxlength="3" placeholder="CVV" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" id="totalPrice" name="totalPrice" value="0">
+                        <center >
+                            <button class="btn waves-effect waves-light amber darken-1" type="submit" id="_submit" onclick=confirmPay()>Book
+                            </button>
+                        </center>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    
+        function forceLower(strInput) {
+            strInput.value=strInput.value.toLowerCase();
+        }
+        $(document).ready(function() {
+            $('select').material_select();
+        });
+        function priceChange(){
+            var total =0;
+            if($('#business').prop('checked')){
+                $('#no_pets').attr("hidden", "true");
+                $('#senior_price_regular').attr("hidden", "true");
+                $('#senior_price_business').removeAttr('hidden');
+                $('#child_price_regular').attr("hidden", "true");
+                $('#child_price_business').removeAttr('hidden');
+                $('#military_price_regular').attr("hidden", "true");
+                $('#military_price_business').removeAttr('hidden');
+                $('#adult_price_regular').attr("hidden", "true");
+                $('#adult_price_business').removeAttr('hidden');
+                let number_of_senior = document.getElementById('_senior').value;
+                let number_of_children = document.getElementById('_children').value;
+                let number_of_adult = document.getElementById('_adult').value;
+                let number_of_military = document.getElementById('_military').value;
+                let price_for_senior = document.getElementById('senior_price_business').innerHTML;
+                let price_for_children = document.getElementById('child_price_business').innerHTML;
+                let price_for_adult = document.getElementById('adult_price_business').innerHTML;
+                let price_for_military = document.getElementById('military_price_business').innerHTML;
+                total = (number_of_senior*price_for_senior) + (number_of_children*price_for_children) +(number_of_adult*price_for_adult) +(price_for_military*number_of_military) ;
+            }
+            else{
+                $('#no_pets').removeAttr('hidden');
+                $('#senior_price_business').attr("hidden", "true");
+                $('#senior_price_regular').removeAttr('hidden');
+                $('#child_price_business').attr("hidden", "true");
+                $('#child_price_regular').removeAttr('hidden');
+                $('#military_price_business').attr("hidden", "true");
+                $('#military_price_regular').removeAttr('hidden');
+                $('#adult_price_business').attr("hidden", "true");
+                $('#adult_price_regular').removeAttr('hidden');
+                let number_of_senior = document.getElementById('_senior').value;
+                let number_of_children = document.getElementById('_children').value;
+                let number_of_adult = document.getElementById('_adult').value;
+                let number_of_military = document.getElementById('_military').value;
+                let number_of_pet = document.getElementById('_pet').value;
+                let price_for_senior = document.getElementById('senior_price_regular').innerHTML;
+                let price_for_children = document.getElementById('child_price_regular').innerHTML;
+                let price_for_adult = document.getElementById('adult_price_regular').innerHTML;
+                let price_for_military = document.getElementById('military_price_regular').innerHTML;
+                let price_for_pet = document.getElementById('pet_price').innerHTML;
+                total = (number_of_senior*price_for_senior) + (number_of_children*price_for_children) +(number_of_adult*price_for_adult) +(price_for_military*number_of_military) +(number_of_pet*price_for_pet);
+            }
+            $('#totalPrice').removeAttr('value');
+            $('#totalPrice').attr("value", total);
+            document.getElementById('total').innerHTML = 'Total: $'+total;
+        }
+        
+        function confirmPay(){
+           alert("Successfully Booked！");  
+        }
+    </script>
+</body>
