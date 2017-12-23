@@ -208,7 +208,7 @@
                             </div>
                             <input type="hidden" id="totalPrice" name="totalPrice" value="0">
                         <center >
-                            <button class="btn waves-effect waves-light amber darken-1" type="submit" id="_submit">Book
+                            <button class="btn waves-effect waves-light amber darken-1" type="submit" id="_submit" onclick=confirmPay()>Book
                             </button>
                         </center>
                     </form>
@@ -278,5 +278,10 @@
             document.getElementById('total').innerHTML = 'Total: $'+total;
 
         }
+        
+        function confirmPay(){
+           alert("Successfully Booked！");  
+        }
+
     </script>
 </body>
