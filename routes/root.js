@@ -89,4 +89,30 @@ router.post('/reservation/new', (req, res) =>
 
 });
 
+// Session: Login Authentication
+router.get('/isExits', function(req,res,next){
+    var name=req.query.name;
+    var pwd=req.query.pwd;
+
+    userdao.query({username:name, password:pwd},function(data){
+        if(data.length>0){
+            req.session.user=data[0],
+            console.log(req.session.user)
+            console.log(req.session.user.username)
+            res.send({result:true});
+
+        }
+        else{
+            res.send({result:false})
+        }
+        res.end();
+    })
+});
+
+router.get('/session', function(req,res,next) {
+     res.send(req.session.user);
+     res.end();
+});
+
+
 module.exports = router;

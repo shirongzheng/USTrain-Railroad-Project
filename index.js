@@ -1,5 +1,9 @@
 /** This is the starting point for the whole application */
 
+//session
+var cookieParser = require('cookie-parser')
+var session = require('express-session')
+
 const express = require('express');
 const exphbs = require('express-handlebars');
 const app = express();
@@ -18,6 +22,14 @@ app.set('view engine', 'handlebars');
 //app.set('views', __dirname + '/views');
 app.set('views', `${__dirname}/views/`);
 
+//set up session
+app.use(cookieParser());
+app.use(session({
+    secret:'12345',
+    cookie:{maxAge:60000},
+    resave:false,
+    saveUninitialized:true
+}));
 
 // A simple debugging middleware that prints requested path
 app.use((req, res, next) =>
