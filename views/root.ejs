@@ -6,7 +6,6 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-    <link href="/css/railroad.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <style>
 /*        .train_info
@@ -102,7 +101,7 @@
                             </div>
                         </div>
                         <br>
-                        <center hidden="true">
+                        <center>
                             <button class="btn waves-effect waves-light amber darken-2 " type="submit" id="_submit">Show Availabilities
                                 <i class="material-icons right">send</i>
                             </button>
@@ -147,6 +146,21 @@
     
     </div>
     <script>
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1;
+        var yyyy = today.getFullYear();
+        var hr = today.getHours();
+        var min = today.getMinutes();
+        var now = hr+":"+min+":00";
+        if(dd<10){
+            dd='0'+dd
+        } 
+        if(mm<10){
+            mm='0'+mm
+        } 
+        today = yyyy +'-'+mm+'-'+dd;
+        var in_a_year = (yyyy+1) +'-'+mm+'-'+dd;
         let _date = document.getElementById('_date');
         let _time = document.getElementById('_time');
         let _from_station = document.getElementById('_from_station');
@@ -160,24 +174,36 @@
             event.preventDefault();
             if(_date.value.length > 0)
             {
-                if
-                (
-                (new Date(_date.value).getTime()/1000 - (new Date().getTime()/1000))
-                <= 0 ||
-                (new Date(_date.value).getTime()/1000 - (new Date().getTime()/1000))
-                >= 31536000
-                )
+                // if
+                // (
+                // (new Date(_date.value).getTime()/1000 - (new Date().getTime()/1000))
+                // <= 0 ||
+                // (new Date(_date.value).getTime()/1000 - (new Date().getTime()/1000))
+                // >= 31536000
+                // )
+
+                if(_date.value < today || _date.value > in_a_year)
                 {
                     _trains.innerHTML = '';
                     $("#card-alert-date").removeAttr('hidden');
+                    $('#card-alert-station').attr("hidden", "true");
                     $("#_information").attr("hidden", 'true');
                     _information.innerHTML = 'Information is available for trip within'
                     + ' now to a year from now. Please change date in that range.';
                     return;
                 }
-                _information.innerHTML = '';
+                else if(_from_station.value== _to_station.value){
+                    console.log("her")
+                    $('#card-alert-station').removeAttr('hidden');
+                    $('#card-alert-date').attr("hidden", "true");
+                    $("#_information").attr("hidden", 'true');
+                    _trains.innerHTML = '';
+                    return;
+                }
+                _information.innerHTML = 'Same station';
                 $("#_information").removeAttr('hidden');
                 $("#card-alert-date").attr("hidden", 'true');
+                $('#card-alert-station').attr("hidden", "true");
                 $("#card-alert-information").attr("hidden", 'true');
                 _trains.innerHTML = '';
                 axios.post
@@ -193,7 +219,6 @@
                 )
                 .then((response) =>
                 {
-                    console.log(response.data);
                     let inner = 
                                 '<thead>'
                                     +'<tr>'
@@ -216,12 +241,22 @@
                                             <input type='hidden' value='${response.data.trains[i].arrival_time}'
                                                 name='arrival_time'>
                                             <input type='hidden' value='${response.data.trains[i].is_first_class_seats_free}'
-                                                name='is_first_class_seats_free'>
-                                            <button class="waves-effect waves-light amber darken-2 btn" type='submit'>Book</button>
+                                                name='is_first_class_seats_free'>`;
+
+                        if(_date.value == today && response.data.trains[i].arrival_time <= now){
+                            inner +=`<button class="waves-effect waves-light amber darken-2 btn disabled" type='submit'>Departed</button>
                                         </form>
                                     </td>`
                                  +
                                 '</tr>\n';
+                        }else{
+                            inner +=`<button class="waves-effect waves-light amber darken-2 btn" type='submit'>&nbsp;&nbsp;&nbsp;&nbsp;Book&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                                        </form>
+                                    </td>`
+                                 +
+                                '</tr>\n';
+                        }
+                                            
 
                     }
                     inner +=    
@@ -253,6 +288,10 @@
 
         $(document).ready(function() {
             $('select').material_select();
+            if(!$('#_date').val())
+                $('#_date').attr("value",today);
+            $('#_date').attr("min",today);
+            $('#_date').attr("max",in_a_year);
             $( "#_submit" ).click();
         });
 
