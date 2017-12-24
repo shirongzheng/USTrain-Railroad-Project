@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>View Summery</title>
+    <script src='axios.min.js'></script>
+</head>
+<body>
+<b>Train: </b><?= train_id ?><br>
+<b>Date: </b><?= date ?><br>
+<b>Start Station: </b><?= from_station_name ?><br>
+<b>End Station: </b><?= to_station_name ?><br>
+<b>Arrival Time: </b><?= arrival_time ?><br>
+<b>Distance: </b><?= distance ?> miles<br>
+<b>First class seat ? </b><?= is_first_class === 'on' ? 'Yes' : 'No' ?><br>
+<b>Bringing pet ? </b><?= is_bringing_pet === 'on' ? 'Yes' : 'No' ?><br>
+<b>Ticket for: </b><?= passenger_type ?><br>
+<b>Payment Method: </b>
+<? if(payment_type === '1') { ?>Station payment counter<? } ?>
+<? if(payment_type === '2') { ?>Money Order via mail<? } ?>
+<? if(payment_type === '3') { ?>Bank check via mail<? } ?>
+<br>
+<b>Your Passanger ID: </b><?= user_id ?><br>
+<b>Total price: </b>$<?= price ?>
+<br>
+<br>
+<form action='/checkout' method='post'>
+    <button type='submit'>Confirm Booking</button>
+</form>
+</body>

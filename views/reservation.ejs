@@ -12,8 +12,8 @@
     <b>Start Station: </b><?= from_station_name ?>
     <br>
     <b>End Station: </b><?= to_station_name ?>
-    <!-- <br> -->
-    <!-- <b>Base Fare: </b>$<?= base_fare ?> -->
+    <br>
+    <b>Arrival Time: </b><?= arrival_time ?>
     <br>
     <b>Distance: </b><?= distance ?> miles
     <br>
@@ -27,7 +27,7 @@
     <br>
     <br>
     <span id='if_old_user' style='display: none'>
-        <form action='/checkout' method='post'>
+        <form action='/view_summery' method='post'>
             Enter your user ID:
             <input
                 type='number'
@@ -63,7 +63,7 @@
             How would you like to make the payment?
             <select name='payment_type' required>
                 <option value='1' selected>Station payment counter</option>
-                <option value='2'>Money Order via smail</option>
+                <option value='2'>Money Order via mail</option>
                 <option value='3'>Bank check via mail</option>
             </select>
             <br>
@@ -75,7 +75,7 @@
         </form>
     </span>
     <span id='if_new_user' style='display: none'>
-        <form action='/checkout' method='post'>
+        <form action='/view_summery' method='post'>
             Your name:
             <input
                 type='text'
@@ -202,10 +202,8 @@
 
             function update_price(a_price, form_number)
             {
-                if(form_number === 1)
-                    form1_price.innerHTML = a_price.toFixed(2);
-                else
-                    form2_price.innerHTML = a_price.toFixed(2);
+                if(form_number === 1) form1_price.innerHTML = a_price.toFixed(2);
+                else                  form2_price.innerHTML = a_price.toFixed(2);
             }
 
             hide_one_or_both();

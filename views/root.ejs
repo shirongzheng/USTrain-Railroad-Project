@@ -15,7 +15,7 @@
     <form>
     Departure date:
     <? if(locals.remember.date) { ?>
-        <input id='_date' value='<?= locals.remember.date ?>'type='date' required>
+        <input id='_date' value='<?= locals.remember.date ?>' type='date' required>
     <? } else { ?>
         <input id='_date' type='date' required>
     <? } ?>
@@ -111,6 +111,8 @@
 <br>
 <form method='post' action='/make_reservation'>
     <input type='hidden' value='${response.data.trains[i].train_id}' name='train_id'>
+    <input type='hidden' value='${response.data.trains[i].arrival_time}'
+        name='arrival_time'>
     <input type='hidden' value='${response.data.trains[i].is_first_class_seats_free}'
         name='is_first_class_seats_free'>
     <button type='submit'>Make Reservation</button>

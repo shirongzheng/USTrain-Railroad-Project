@@ -19,41 +19,31 @@ router.get('/make_reservation', (req, res) =>
         return res.redirect(301, '/');
     }
 
-    let obj = {};
-    obj.date = req.session.date;
-    obj.from_station = req.session.from_station;
-    obj.to_station = req.session.to_station;
-    obj.base_fare = req.session.base_fare;
-    obj.distance = req.session.distance;
-    obj.train_id = req.session.train_id;
-    obj.base_fare = req.session.base_fare;
-    obj.distance = req.session.distance;
-    obj.is_first_class_seats_free = req.session.is_first_class_seats_free;
-
     db.query
     (
         `
         SELECT name FROM station WHERE
-            id = ${obj.from_station} OR
-            id = ${obj.to_station}
+            id = ${req.session.from_station} OR
+            id = ${req.session.to_station}
         `
     )
     .then((result) =>
     {
-        obj.from_station_name = result[0].name;
-        obj.to_station_name = result[1].name;
-        res.render('reservation', obj);
+        req.session.from_station_name = result[0].name;
+        req.session.to_station_name = result[1].name;
+        res.render('reservation', req.session);
     })
     .catch((err) =>
     {
         console.log('Error:\n', err);
-        res.render('reservation', obj);
+        res.render('reservation', req.session);
     });
 });
 
 router.post('/make_reservation', (req, res) =>
 {
     req.session.train_id = req.body.train_id;
+    req.session.arrival_time = req.body.arrival_time;
     req.session.is_first_class_seats_free = req.body.is_first_class_seats_free;
     res.redirect(301, '/make_reservation');
 });
