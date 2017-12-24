@@ -68,6 +68,19 @@
             event.preventDefault();
             if(_date.value.length > 0)
             {
+                if
+                (
+                (new Date(_date.value).getTime()/1000 - (new Date().getTime()/1000))
+                <= 0 ||
+                (new Date(_date.value).getTime()/1000 - (new Date().getTime()/1000))
+                >= 31536000
+                )
+                {
+                    _trains.innerHTML = '';
+                    _information.innerHTML = 'Information is available for trip within'
+                    + ' now to a year from now. Please change date in that range.';
+                    return;
+                }
                 _information.innerHTML = '';
                 _trains.innerHTML = '';
                 axios.post
