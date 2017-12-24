@@ -80,6 +80,13 @@ router.get('/book/:train_id/:arrival_time/:date/:from_station/:to_station', (req
 
 router.post('/reservation/new', (req, res) =>
 {
+    db.query(`INSERT INTO passenger (email, name, phone) 
+              VALUES ('${req.body.email}, ${req.body.first_name +" "+ req.body.last_name}, ${req.body.phone}')`)
+    .then((passenger)=>{
+        
+    }).catch((err) =>{
+        res.json(err);
+    });
     //RESERVATION NEEDS TO BE CREATED
     //CHANGE reservation_id TO DISPLAY ACTUAL ID
     console.log(req.body);
