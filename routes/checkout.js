@@ -79,8 +79,55 @@ router.post('/checkout', (req, res) =>
         })
         .then((result) =>
         {
-            // TODO: update seats free
             req.session.trip_id = result.id;
+
+            return db.query
+            (
+                `
+                SELECT id FROM segment
+                WHERE
+                    start_station >= ${Math.min
+                        (
+                            Number(req.session.from_station),
+                            Number(req.session.to_station)
+                        )} AND
+                    end_station <= ${Math.max
+                        (
+                            Number(req.session.from_station),
+                            Number(req.session.to_station)
+                        )};
+                `
+            );
+        })
+        .then((result) =>
+        {
+            // TODO ensure seats free doesn't become negative elsewhere
+            let update_seats_free_p = [];
+            for(let i = 0; i < result.length; ++i)
+            {
+                update_seats_free_p.push
+                (
+                    db.none
+                    (
+                        `
+                        UPDATE seats_free
+                        SET
+                            num_of_free_seats = num_of_free_seats - 1
+                            ${req.session.is_first_class === 'on' ?
+                            ', first_class_seats = first_class_seats - 1' : ' '}
+                        WHERE
+                            train_id = ${req.session.train_id} AND
+                            segment_id = ${result[i].id} AND
+                            of_date = '${req.session.date}'
+                        `
+                    )
+                );
+            }
+
+            return Promise.all(update_seats_free_p);
+        })
+        .then(() =>
+        {
             res.render('checkout', req.session);
             req.session.destroy();
         })
