@@ -31,8 +31,10 @@ CREATE TABLE seats_free
     train_id          INTEGER NOT NULL REFERENCES train(id),
     segment_id        INTEGER NOT NULL REFERENCES segment(id),
     of_date           DATE NOT NULL DEFAULT NOW(),
-    num_of_free_seats SMALLINT NOT NULL, /* (7 * 64) = 448 */
-    first_class_seats SMALLINT NOT NULL, /* 64 */
+    num_of_free_seats SMALLINT NOT NULL
+                      CHECK (num_of_free_seats >= 0 AND num_of_free_seats <=448),
+    first_class_seats SMALLINT NOT NULL
+                      CHECK (first_class_seats >= 0 AND first_class_seats <= 64),
 
     PRIMARY KEY(train_id, segment_id, of_date)
 );
