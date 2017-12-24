@@ -73,7 +73,8 @@ CREATE TABLE trip
     end_station    INTEGER NOT NULL REFERENCES station(id),
     reservation_id INTEGER NOT NULL REFERENCES reservation(id),
     train_id       INTEGER NOT NULL REFERENCES train(id),
-    on_date        DATE NOT NULL
+    on_date        DATE NOT NULL,
+    is_first_class BOOLEAN NOT NULL
 );
 
 

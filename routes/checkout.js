@@ -61,7 +61,8 @@ router.post('/checkout', (req, res) =>
                     end_station,
                     reservation_id,
                     train_id,
-                    on_date
+                    on_date,
+                    is_first_class
                 )
                 VALUES
                 (
@@ -70,7 +71,8 @@ router.post('/checkout', (req, res) =>
                     ${req.session.to_station},
                     ${result.id},
                     ${req.session.train_id},
-                    '${req.session.date}'
+                    '${req.session.date}',
+                    ${req.session.is_first_class === 'on' ? 'TRUE' : 'FALSE'}
                 )
                 RETURNING id
                 `
