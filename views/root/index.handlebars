@@ -44,6 +44,7 @@
                                 Departure station: 
                                 <div class="input-field ">
                                     <select id='_from_station' onchange="myCick()" required>
+                                            <option value="0" selected="true" disabled="true">Please select a station</option>
                                         {{#each stations}}
                                             <option value="{{this.id}}">{{this.name}}</option>
                                         {{/each}}
@@ -58,6 +59,7 @@
                                 Arrival station: 
                                 <div class="input-field ">
                                     <select id='_to_station' onchange="myCick()" required>
+                                        <option value="0" selected="true" disabled="true">Please select a station</option>
                                         {{#each stations}}
                                             <option value="{{this.id}}">{{this.name}}</option>
                                         {{/each}}
@@ -81,6 +83,13 @@
                         <div id="card-alert-date" class="card red lighten-5" hidden="true">
                             <div class="card-content red-text">
                                 <p><center>Invalid Date</center></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container" >
+                        <div id="card-alert-station" class="card red lighten-5" hidden="true">
+                            <div class="card-content red-text">
+                                <p><center>Please select your stations</center></p>
                             </div>
                         </div>
                     </div>
@@ -133,9 +142,15 @@
             event.preventDefault();
             if(_date.value < today || _date.value > in_a_year){
                 $('#card-alert-date').removeAttr('hidden');
+                $('#card-alert-station').attr("hidden", "true");
+                _trains.innerHTML = '<tr></tr>';
+            }else if(_from_station.value==0 || _to_station.value == 0){
+                $('#card-alert-station').removeAttr('hidden');
+                $('#card-alert-date').attr("hidden", "true");
                 _trains.innerHTML = '<tr></tr>';
             }else if(_date.value.length > 0){
                 $('#card-alert-date').attr("hidden", "true");
+                $('#card-alert-station').attr("hidden", "true");
                 //_information.innerHTML = '';
                 axios.post
                 (
