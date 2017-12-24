@@ -4,9 +4,6 @@
     <script src='axios.min.js'></script>
 </head>
 <body>
-
-
-
     <div class="container">
         <div class="row">
             <div class="section"></div>
@@ -33,9 +30,9 @@
                                 <div class="input-field inline">
                                     <select id='_time' onchange="myCick()" required>
                                         <option value="any">Any Time</option>
-                                        <option value="morning">Morning</option>
-                                        <option value="afternoon">Afternoon</option>
-                                        <option value="evening">Evening</option>
+                                        <option value="morning">Morning (4am-noon)</option>
+                                        <option value="afternoon">Afternoon (noon - 8pm)</option>
+                                        <option value="evening">Evening (8pm-4am)</option>
                                     </select>
                                 </div>
                             </div>
@@ -106,6 +103,9 @@
         var dd = today.getDate();
         var mm = today.getMonth()+1;
         var yyyy = today.getFullYear();
+        var hr = today.getHours();
+        var min = today.getMinutes();
+        var now = hr+":"+min+":00";
         if(dd<10){
             dd='0'+dd
         } 
@@ -117,6 +117,8 @@
         $('#_date').attr("value",today);
         $('#_date').attr("min",today);
         $('#_date').attr("max",in_a_year);
+
+
 
         let _date = document.getElementById('_date');
         let _time = document.getElementById('_time');
@@ -130,7 +132,6 @@
         {
             event.preventDefault();
             if(_date.value < today || _date.value > in_a_year){
-                console.log("ERROR")
                 $('#card-alert-date').removeAttr('hidden');
                 _trains.innerHTML = '<tr></tr>';
             }else if(_date.value.length > 0){
@@ -169,9 +170,20 @@
                                             +'/'+response.data[i].arrival_time
                                             +'/'+_date.value
                                             +'/'+_from_station[_from_station.selectedIndex].value
-                                            +'/'+_to_station[_to_station.selectedIndex].value                                           
-                                            +'" class="waves-effect waves-light amber darken-1 btn">Book</a></td>'
+                                            +'/'+_to_station[_to_station.selectedIndex].value;
+                        // console.log("train day:"+_date.value+"      today:"+today +"       Logic:"+(_date.value == today));
+                        // console.log("traintime:"+ response.data[i].arrival_time+"        now:"+ now+"           Logic:"+(response.data[i].arrival_time <= now));
+                        if(_date.value == today && response.data[i].arrival_time <= now){
+                            inner+=
+                                            '" class="waves-effect waves-light amber darken-1 btn" disabled="true">Departed</a></td>'
                                     +'</tr>';
+                        }          
+                        else{
+                            inner +=
+                                            '" class="waves-effect waves-light amber darken-1 btn">Book</a></td>'
+                                    +'</tr>';
+                        }                                           
+
                             /*
                             '<li>'
                                 + '<b>Train: </b>' + response.data[i].train_id
