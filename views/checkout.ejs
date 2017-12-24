@@ -1,29 +1,74 @@
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
-    <title>Make Reservation</title>
+    <title>View Summery</title>
+    <script src='axios.min.js'></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link href="/css/railroad.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <style>
+/*        .train_info
+        {
+            border-left: 0.1em solid #ddd;
+            padding: 1%;
+        }*/
+        .nav-wrapper{
+            background-color: #4682B4;
+        }
+    </style>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="/" class="brand-logo">USTrain</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="/reservation/lookUp">My Reservations</a></li>
+            </ul>
+        </div>
+    </nav>
 </head>
 <body>
-<h3>Your booking has been confirmed. Thank You</h3>
-<b>Train: </b><?= train_id ?><br>
-<b>Date: </b><?= date ?><br>
-<b>Start Station: </b><?= from_station_name ?><br>
-<b>End Station: </b><?= to_station_name ?><br>
-<b>Arrival Time: </b><?= arrival_time ?><br>
-<b>Distance: </b><?= distance ?> miles<br>
-<b>First class seat ? </b><?= (is_first_class === 'on') ? 'Yes' : 'No' ?><br>
-<b>Bringing pet ? </b><?= (is_bringing_pet === 'on') ? 'Yes' : 'No' ?><br>
-<b>Ticket for: </b><?= passenger_type ?><br>
-<b>Payment Method: </b>
-<? if(payment_type === '1') { ?>Station payment counter<? } ?>
-<? if(payment_type === '2') { ?>Money Order via mail<? } ?>
-<? if(payment_type === '3') { ?>Bank check via mail<? } ?>
-<br>
-<b>Total price: </b>$<?= price ?><br>
-<b>Your Passanger ID: </b><?= user_id ?><br>
-<b>This trip ID: </b><?= trip_id ?><br>
-<br>
-<br>
-<br>
-Note: Your session has been closed.
+    <div class="section"></div>
+    <div class="section"></div>
+    <div class="section"></div>
+    <div class="section"></div>
+	 <div class="container centerPage">
+        <div class="row ">
+            <div class="col s6 offset-s3 " >
+                <div class="card-panel card" >
+		            <h2 class="card-title ">Your booking has been confirmed. Thank You!</h2>
+		            <hr>
+                	<div>
+		                <b>Train: </b><?= train_id ?><br>
+						<b>Date: </b><?= date ?><br>
+						<b>Start Station: </b><?= from_station_name ?><br>
+						<b>End Station: </b><?= to_station_name ?><br>
+						<b>Arrival Time: </b><?= arrival_time ?><br>
+						<b>Distance: </b><?= distance ?> miles<br>
+						<b>First class seat ? </b><?= (is_first_class === 'on') ? 'Yes' : 'No' ?><br>
+						<b>Bringing pet ? </b><?= (is_bringing_pet === 'on') ? 'Yes' : 'No' ?><br>
+						<b>Ticket for: </b><?= passenger_type ?><br>
+						<b>Payment Method: </b>
+						<? if(payment_type === '1') { ?>Station payment counter<? } ?>
+						<? if(payment_type === '2') { ?>Money Order via mail<? } ?>
+						<? if(payment_type === '3') { ?>Bank check via mail<? } ?>
+						<br>
+						<b>Total price: </b>$<?= price ?><br>
+						<b>Your Passanger ID: </b><?= user_id ?><br>
+						<b>This trip ID: </b><?= trip_id ?><br>
+                    </div>
+                    <center>
+                    	<div>
+		                    <label> Please keep this information for future reference.</label>
+		                    <hr>
+		                    <p2>Note: Your session has been closed.</p2>
+                    	</div>
+                    	<div>
+							<a class="waves-effect waves-light btn amber darken-2" href='/'><i class="material-icons left">home</i>Home</a>
+						</div>                 	
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>

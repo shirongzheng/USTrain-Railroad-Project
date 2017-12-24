@@ -1,160 +1,255 @@
-<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <title>Make Reservation</title>
     <script src='axios.min.js'></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <style>
+        .nav-wrapper{
+            background-color: #4682B4;
+        }
+        div.relativeLeft {
+          position: fixed;
+          top: 30%;
+          left: 48%;
+          /* bring your own prefixes */
+          transform: translate(-50%, -50%);
+        }
+    </style>
+    <script>
+        $(document).ready(function() {
+            $('select').material_select();
+        });
+    </script>
 </head>
 <body>
-    <b>Selected Train: </b> <?= train_id ?>
-    <br>
-    <b>Date: </b><?= date ?>
-    <br>
-    <b>Start Station: </b><?= from_station_name ?>
-    <br>
-    <b>End Station: </b><?= to_station_name ?>
-    <br>
-    <b>Arrival Time: </b><?= arrival_time ?>
-    <br>
-    <b>Distance: </b><?= distance ?> miles
-    <br>
-    <hr>
-    <b>Do you have a user id?</b>
-    <select id='is_old_user' required>
-        <option disabled selected value style='display: none'></option>
-        <option value='0'>No</option>
-        <option value='1'>Yes</option>
-    </select>
-    <br>
-    <br>
-    <span id='if_old_user' style='display: none'>
-        <form action='/view_summery' method='post'>
-            Enter your user ID:
-            <input
-                type='number'
-                name='user_id'
-                step='1'
-                min='0'
-                required>
-            <br>
-            <? if(is_first_class_seats_free === 'true') { ?>
-                Would you wish to book a first class seat ?
-                <input
-                    id='is_first_class1'
-                    type='checkbox'
-                    name='is_first_class'>
-            <? } else { ?>
-                Note: There is no first class seats left
-            <? } ?>
-            <br>
-            Are you bringin a pet?
-            <input
-                id='is_bringing_pet1'
-                type='checkbox'
-                name='is_bringing_pet'>
-            <br>
-            This ticket is for a
-            <select name='passenger_type' id='passenger_type1' required>
-                <option value='adult' selected>non-militery adult</option>
-                <option value='senior'>senior</option>
-                <option value='children'>children</option>
-                <option value='militery'>millitery</option>
-            </select>
-            <br>
-            How would you like to make the payment?
-            <select name='payment_type' required>
-                <option value='1' selected>Station payment counter</option>
-                <option value='2'>Money Order via mail</option>
-                <option value='3'>Bank check via mail</option>
-            </select>
-            <br>
-                <b>Price Estimate: </b>$<span id='form1_price'></span>
-            <br>
-            <br>
-            <button
-                type='submit'>View Price and Summery</button>
-        </form>
-    </span>
-    <span id='if_new_user' style='display: none'>
-        <form action='/view_summery' method='post'>
-            Your name:
-            <input
-                type='text'
-                name='name'
-                required>
-            <br>
-            Address:
-            <input
-                type='text'
-                name='address'
-                required>
-            <br>
-            Email:
-            <input
-                type='email'
-                name='email'
-                required>
-            <br>
-            Phone Number:
-            <input
-                type='tel'
-                name='phone'
-                required>
-            <br>
-            <? if(is_first_class_seats_free === 'true') { ?>
-                Would you wish to book a first class seat ?
-                <input
-                    id='is_first_class2'
-                    type='checkbox'
-                    name='is_first_class'>
-            <? } else { ?>
-                <label>Note: There is no first class seats left </label>
-            <? } ?>
-            <br>
-            Are you bringin a pet?
-            <input
-                id='is_bringing_pet2'
-                type='checkbox'
-                name='is_bringing_pet'>
-            <br>
-            This ticket is for a
-            <select name='passenger_type' id='passenger_type2' required>
-                <option value='adult' selected>non-militery adult</option>
-                <option value='senior'>senior</option>
-                <option value='children'>children</option>
-                <option value='militery'>millitery</option>
-            </select>
-            <br>
-            How would you like to make the payment?
-            <select name='payment_type' required>
-                <option value='1' selected>Station payment counter</option>
-                <option value='2'>Money Order via smail</option>
-                <option value='3'>Bank check via mail</option>
-            </select>
-            <br>
-                <b>Price Estimate: </b>$<span id='form2_price'></span>
-            <br>
-            <br>
-            <button
-                type='submit'>View Price and Summery</button>
-        </form>
-    </span>
-    <br>
-    <br>
-    <a
-        href='/'
-        style='
-            text-decoration: none;
-            border-bottom: 0.1em solid #DDD;
-            color: #000'>&lt;-- Change Info</a>
-    <hr>
-    <ul>
-        <li>If price is more than $30, senior passenger can receieve discount </li>
-        <li>If price is more than $20, children passenger can receieve discount </li>
-        <li>If price is more than $10, militery passenger can receive discount </li>
-        <li>For bringing pet, additional $20 will be charged</li>
-        <li>For first class seat, additional $50 will be charged</li>
-        <li>The closer the date of your trip, the higher the prices will be</li>
-    </ul>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="/" class="brand-logo">USTrain</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="/reservation/lookUp">My Reservations</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container relativeLeft">
+        <div class="row">
+            <a class="waves-effect waves-light btn amber darken-2" href='/'><i class="material-icons left">keyboard_backspace</i>Back</a>
+        </div>
+    </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="section"></div>
+            <div class="section"></div>
+            <div class="col s6 offset-s3" >
+                <div class="card-panel" >
+                    <h4 class="card-title center">Book Trip</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col s8">
+                            <div class="row">
+                                <div class="col s12">
+                                    Train number: </b> <?= train_id ?>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col s12">
+                                    Departure date: </b><?= date ?>
+                                </div>
+                            </div>
+                            
+
+                            <div class="row">
+                                <div class="col s12">
+                                    Train time: <?= arrival_time ?>
+                                </div>
+                            </div>
+                           
+                            <div class="row">
+                                <div class="col s12">
+                                    Start station: <?= from_station_name ?>
+                                </div>
+                            </div>
+                    
+                            <div class="row">
+                                <div class="col s12">
+                                    End station: <?= to_station_name ?>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col s12">
+                                    Distance: </b><?= distance ?> miles
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s4">
+                            <br>
+                            <h3 id="total">
+                                <!-- Total: $0 -->
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col s6 offset-s3" >
+                <div class="card-panel" >
+                    <div class="row">
+                        <div class="col s12">
+                            Do you have a user id?
+                            <div class="input-field inline">
+                                <select id='is_old_user' onchange="hide_one_or_both()" required>
+                                    <option disabled selected value style='display: none'></option>
+                                    <option value='0'>No</option>
+                                    <option value='1'>Yes</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col s12" id='if_old_user' style='display: none'>
+                            <form action='/view_summery' method='post'>
+                                <div class="input-field col s12">
+                                    <input id="user_id" type="number" name="user_id" step='1' min='0'class="validate" required>
+                                    <label for="user_id">Your User ID</label>
+                                </div>
+                                <div class=" col s12">
+                                    <? if(is_first_class_seats_free === 'true') { ?>
+                                        Would you wish to book a first class seat?&nbsp;&nbsp;
+                                        <input type="checkbox" class="filled-in" id="is_first_class1" name='is_first_class'/>
+                                        <label for="is_first_class1">&nbsp;</label>
+                                    <? } else { ?>
+                                        <label>Note: There is no first class seats left </label>
+                                    <? } ?>
+                                    <br>
+                                    <br>
+                                </div>
+                                <br>
+                                <div class=" col s12">
+                                    Would you wish to bringin your pet?&nbsp;&nbsp;
+                                    <input type="checkbox" class="filled-in" id="is_bringing_pet1" name='is_bringing_pet'/>
+                                    <label for="is_bringing_pet1">&nbsp;</label>
+                                </div>
+                                <div class=" col s12">
+                                    This ticket is for a
+                                    <div class="input-field inline">
+                                        <select name='passenger_type' id='passenger_type1' required>
+                                            <option value='adult' selected>Non-Militery Adult</option>
+                                            <option value='senior'>Senior</option>
+                                            <option value='children'>Child</option>
+                                            <option value='militery'>Millitary</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class=" col s12">
+                                    How would you like to make the payment?
+                                    <div class="input-field inline">
+                                        <select name='payment_type' required>
+                                            <option value='1' selected>Station payment counter</option>
+                                            <option value='2'>Money Order via smail</option>
+                                            <option value='3'>Bank check via mail</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <br>
+                                <center>
+                                    <b>Price Estimate: </b>$<span id='form1_price'></span>
+                                    <br>
+                                    <br>
+                                    <button type='submit' class="btn waves-effect waves-light amber darken-2" >View Price and Summery</button>
+                                </center>
+                            </form>
+                        </div>
+                        <div class="col s12" id='if_new_user' style='display: none'>
+                            <form action='/view_summery' method='post'>
+                                <div class="input-field col s12">
+                                    <input id="name" type="text" name="name" class="validate" required>
+                                    <label for="name">Your name</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <input id="address" type="text" name="address" class="validate" required>
+                                    <label for="address">Your Address</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <input id="email" type="email" name="email" class="validate" required>
+                                    <label for="email">Your Email</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <input id="phone" type="tel" name="phone" class="validate" required>
+                                    <label for="phone">Your Phone Number</label>
+                                </div>
+                                <div class=" col s12">
+                                    <? if(is_first_class_seats_free === 'true') { ?>
+                                        Would you wish to book a first class seat?&nbsp;&nbsp;
+                                        <input type="checkbox" class="filled-in" id="is_first_class2" name='is_first_class'/>
+                                        <label for="is_first_class2">&nbsp;</label>
+                                    <? } else { ?>
+                                        <label>Note: There is no first class seats left </label>
+                                    <? } ?>
+                                    <br>
+                                    <br>
+                                </div>
+                                <br>
+                                <div class=" col s12">
+                                    Would you wish to bringin your pet?&nbsp;&nbsp;
+                                    <input type="checkbox" class="filled-in" id="is_bringing_pet2" name='is_bringing_pet'/>
+                                    <label for="is_bringing_pet2">&nbsp;</label>
+                                </div>
+                                <div class=" col s12">
+                                    This ticket is for a
+                                    <div class="input-field inline">
+                                        <select name='passenger_type' id='passenger_type2' required>
+                                            <option value='adult' selected>Non-Militery Adult</option>
+                                            <option value='senior'>Senior</option>
+                                            <option value='children'>Child</option>
+                                            <option value='militery'>Millitary</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class=" col s12">
+                                    How would you like to make the payment?
+                                    <div class="input-field inline">
+                                        <select name='payment_type' required>
+                                            <option value='1' selected>Station payment counter</option>
+                                            <option value='2'>Money Order via smail</option>
+                                            <option value='3'>Bank check via mail</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <br>
+                                <center>
+                                    <b>Price Estimate: </b>$<span id='form2_price'></span>
+                                    <br>
+                                    <br>
+                                    <button type='submit' class="btn waves-effect waves-light amber darken-2" >View Price and Summery</button>
+                                </center>
+                            </form>
+                        </div>                                            
+                    </div>
+                </div>
+            </div>
+                            <div class="container">
+                    <div class="row">
+                        <div class="card-panel col s8 offset-s2">
+                            <ul>
+                                <li>If price is more than $30, senior passenger can receieve discount.</li>
+                                <li>If price is more than $20, children passenger can receieve discount.</li>
+                                <li>If price is more than $10, militery passenger can receive discount.</li>
+                                <li>For bringing pet, additional $20 will be charged.</li>
+                                <li>For first class seat, additional $50 will be charged.</li>
+                                <li>The closer the date of your trip, the higher the prices will be.</li>
+                            </ul>                
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+
     <script>
         let price1 = Number(<?= base_fare ?>);
         let seconds_diff =
@@ -162,91 +257,97 @@
         const year_in_seconds = 31536000;
         price1 = (Math.abs(1-(seconds_diff/year_in_seconds)) * price1) + price1;
         let price2 = price1;
-
         document.addEventListener("DOMContentLoaded", (event) =>
         {
             let is_old_user = document.getElementById('is_old_user');
             let if_old_user = document.getElementById('if_old_user');
             let if_new_user = document.getElementById('if_new_user');
-
             let is_first_class1 = document.getElementById('is_first_class1');
             let is_first_class2 = document.getElementById('is_first_class2');
             let is_bringing_pet1 = document.getElementById('is_bringing_pet1');
             let is_bringing_pet2 = document.getElementById('is_bringing_pet2');
             let passenger_type1 = document.getElementById('passenger_type1');
             let passenger_type2 = document.getElementById('passenger_type2');
-
             let form1_price = document.getElementById('form1_price');
             let form3_price = document.getElementById('form2_price');
-
             function hide_one_or_both()
             {
                 let selected = is_old_user[is_old_user.selectedIndex].value;
-
                 if(selected === '1')
                 {
-                    if_old_user.removeAttribute('style');
-                    if_new_user.setAttribute('style', 'display : none');
+
+                    $('#if_old_user').removeAttr('style');
+                    $('#if_new_user').attr("style", 'display : none');
                 }
                 else if(selected === '0')
                 {
-                    if_old_user.setAttribute('style', 'display : none');
-                    if_new_user.removeAttribute('style');
+
+                    $('#if_new_user').removeAttr('style');
+                    $('#if_old_user').attr("style", 'display : none');
                 }
                 else
                 {
-                    if_old_user.setAttribute('style', 'display : none');
-                    if_new_user.setAttribute('style', 'display : none');
+                    $('#if_new_user').attr("style", 'display : none');
+                    $('#if_old_user').attr("style", 'display : none');
                 }
             }
-
             function update_price(a_price, form_number)
             {
                 if(form_number === 1) form1_price.innerHTML = a_price.toFixed(2);
                 else                  form2_price.innerHTML = a_price.toFixed(2);
             }
-
             hide_one_or_both();
             update_price(price1, 1);
             update_price(price2, 2);
-
             is_old_user.addEventListener('change', () =>
             {
                 hide_one_or_both();
             });
-
             is_first_class1.addEventListener('change', () =>
             {
                 if(is_first_class1.checked) price1 += 50;
                 else                        price1 -= 50;
-
                 update_price(price1, 1);
             });
-
             is_first_class2.addEventListener('change', () =>
             {
                 if(is_first_class2.checked) price2 += 50;
                 else                        price2 -= 50;
-
                 update_price(price2, 2);
             });
-
             is_bringing_pet1.addEventListener('change', () =>
             {
                 if(is_bringing_pet1.checked) price1 += 20;
                 else                         price1 -= 20;
-
                 update_price(price1, 1);
             });
-
             is_bringing_pet2.addEventListener('change', () =>
             {
                 if(is_bringing_pet2.checked) price2 += 20;
                 else                         price2 -= 20;
-
                 update_price(price2, 2);
             });
-
         });
+        function hide_one_or_both()
+            {
+                let selected = is_old_user[is_old_user.selectedIndex].value;
+                if(selected === '1')
+                {
+
+                    $('#if_old_user').removeAttr('style');
+                    $('#if_new_user').attr("style", 'display : none');
+                }
+                else if(selected === '0')
+                {
+
+                    $('#if_new_user').removeAttr('style');
+                    $('#if_old_user').attr("style", 'display : none');
+                }
+                else
+                {
+                    $('#if_new_user').attr("style", 'display : none');
+                    $('#if_old_user').attr("style", 'display : none');
+                }
+            }
     </script>
 </body>
