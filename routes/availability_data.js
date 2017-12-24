@@ -45,7 +45,8 @@ router.post('/availability_data', (req, res) =>
         s.station_id = ${req.body.from_station} AND
         t.days like '${schedule}'
         ${additional_query}
-    );
+    )
+    order by arrival_time;
     `;
 
     console.log(query);
