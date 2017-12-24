@@ -2,12 +2,6 @@ let router = require('express').Router();
 let db = require('../database/connect');
 let validator = require('validator');
 
-router.get('/view_summery', (req, res) =>
-{
-    console.log('view session', req.session);
-    res.send('TO BE IMPLEMENTED');
-});
-
 router.post('/view_summery', (req, res) =>
 {
     let seconds_diff =
@@ -44,7 +38,12 @@ router.post('/view_summery', (req, res) =>
         .catch((err) =>
         {
             console.log('Error:\n', err);
-            res.redirect(301, '/make_reservation');
+            if(err.received === 0)
+                res.status(400)
+                .send('No user of given ID, please go back and retry');
+            else
+                res.status(500)
+                .send('Unexpected error, please retry or contact admin');
         });
     }
     else
@@ -93,7 +92,8 @@ router.post('/view_summery', (req, res) =>
         .catch((err) =>
         {
             console.log('Error:\n', err);
-            res.redirect(301, '/make_reservation');
+            res.status(500)
+            .send('Unexpected error, please retry or contact admin');
         });
     }
 });
