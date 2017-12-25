@@ -42,8 +42,7 @@ app.use
             secret: process.env.FOO_COOKIE_SECRET || 'default_secret873iuhj',
             cookie:
             {
-                maxAge: 1 * 24 * 60 * 60 * 1000 /* 1 day */,
-                secure : process.env.DATABASE_URL ? true : false
+                maxAge: 1 * 24 * 60 * 60 * 1000 /* 1 day */
             },
             resave: true,
             saveUninitialized: true
