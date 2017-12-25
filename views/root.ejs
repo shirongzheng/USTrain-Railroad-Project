@@ -2,59 +2,165 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <script src='axios.min.js'></script>
+    <script src='axios.min.js'></script> 
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <style>
-        .train_info
+/*        .train_info
         {
             border-left: 0.1em solid #ddd;
             padding: 1%;
+        }*/
+        .nav-wrapper{
+            background-color: #4682B4;
         }
     </style>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="/" class="brand-logo">&nbsp;&nbsp;USTrain</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="/reservation/lookUp">My Reservations</a></li>
+            </ul>
+        </div>
+    </nav>
 </head>
 <body>
-    <form>
-    Departure date:
-    <? if(locals.remember.date) { ?>
-        <input id='_date' value='<?= locals.remember.date ?>' type='date' required>
-    <? } else { ?>
-        <input id='_date' type='date' required>
-    <? } ?>
+     <div class="container">
+        <div class="row">
+            <div class="section"></div>
+            <div class="section"></div>
+            <div class="col s5">
+                <div class="card-panel" >
+                    <h4 class="card-title center">Search Trips</h4>
+                    <hr>
+                    <form>
+                        <div class="row">
+                            <div class="col s12 center">
+                                Departure date: 
+                                <? if(locals.remember.date) { ?>
+                                    <div class="input-field inline">
+                                        <input id='_date' type='date' value='<?= locals.remember.date ?>' onchange="myCick()" required>
+                                    </div>
+                                <? } else { ?>
+                                    <div class="input-field inline">
+                                        <input id='_date' type='date' onchange="myCick()" required>
+                                    </div>
+                                <? } ?>
+                            </div>
+                        </div>
 
-    <br>
-    Departure time: <select id='_time' required>
-        <option value="any">Any Time</option>
-        <option value="morning">Morning</option>
-        <option value="afternoon">Afternoon</option>
-        <option value="evening">Evening</option>
-    </select>
-    <br>
-    Departure station: <select id='_from_station' required>
-    <? for(let i = 0; i < stations.length; ++i) { ?>
-        <? if(locals.remember.from_station && i+1 == locals.remember.from_station) { ?>
-            <option value='<?= i+1 ?>' selected><?= stations[i].name ?></option>
-        <? } else { ?>
-            <option value='<?= i+1 ?>'><?= stations[i].name ?></option>
-        <? } ?>
-    <? } ?>
-    </select>
-    <br>
-    Arrival station: <select id='_to_station' required>
-    <? for(let i = stations.length-1; i >= 0; --i) { ?>
-        <? if(locals.remember.to_station && i+1 == locals.remember.to_station) { ?>
-            <option value='<?= i+1 ?>' selected><?= stations[i].name ?></option>
-        <? } else { ?>
-            <option value='<?= i+1 ?>'><?= stations[i].name ?></option>
-        <? } ?>
-    <? } ?>
-    </select>
-    <br>
-    <button id='_submit' type='submit'>Show Availabilities</button>
-    </form>
-    <div id='_information'></div>
-    <div id='_trains'>
+                        <br>
+
+                        <div class="row">
+                            <div class="col s12 center">
+                                Departure time: 
+                                <div class="input-field inline">
+                                    <select id='_time' onchange="myCick()" required>
+                                        <option value="any">Any Time</option>
+                                        <option value="morning">Morning (4am-noon)</option>
+                                        <option value="afternoon">Afternoon (noon - 8pm)</option>
+                                        <option value="evening">Evening (8pm-4am)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="row">
+                            <div class="col s12">
+                                Departure station: 
+                                <div class="input-field ">
+                                    <select id='_from_station' onchange="myCick()" required>
+                                        <? for(let i = 0; i < stations.length; ++i) { ?>
+                                            <? if(locals.remember.from_station && i+1 == locals.remember.from_station) { ?>
+                                                <option value='<?= i+1 ?>' selected><?= stations[i].name ?></option>
+                                            <? } else { ?>
+                                                <option value='<?= i+1 ?>'><?= stations[i].name ?></option>
+                                            <? } ?>
+                                        <? } ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="row">
+                            <div class="col s12">
+                                Arrival station: 
+                                <select id='_to_station' onchange="myCick()" required>
+                                    <? for(let i = stations.length-1; i >= 0; --i) { ?>
+                                        <? if(locals.remember.to_station && i+1 == locals.remember.to_station) { ?>
+                                            <option value='<?= i+1 ?>' selected><?= stations[i].name ?></option>
+                                        <? } else { ?>
+                                            <option value='<?= i+1 ?>'><?= stations[i].name ?></option>
+                                        <? } ?>
+                                    <? } ?>
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <center>
+                            <button class="btn waves-effect waves-light amber darken-2 " type="submit" id="_submit">Show Availabilities
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </center>
+                    </form>
+                </div>
+            </div>
+            <div class="col s5 offset-s2">
+                <div class="card-panel" >
+                    <table id = '_trains' class="striped"></table>
+                    <div class="container" >
+                        <div id="card-alert-date" class="card red lighten-5" hidden="true">
+                            <div class="card-content red-text">
+                                <p><center>Information is available for trips within now to a year from now. Please change date in that range.</center></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container" >
+                        <div id="card-alert-station" class="card red lighten-5" hidden="true">
+                            <div class="card-content red-text">
+                                <p><center>Please select your stations</center></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container" >
+                        <div id="card-alert-information" class="card red lighten-5" hidden="true">
+                            <div class="card-content red-text">
+                                <p><center>Please fill out all the information</center></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
+    <form>
+
+    <center>    
+        <div id='_information'></div>
+    </center>
+    
+    </div>
     <script>
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1;
+        var yyyy = today.getFullYear();
+        var hr = today.getHours();
+        var min = today.getMinutes();
+        var now = hr+":"+min+":00";
+        if(dd<10){
+            dd='0'+dd
+        } 
+        if(mm<10){
+            mm='0'+mm
+        } 
+        today = yyyy +'-'+mm+'-'+dd;
+        var in_a_year = (yyyy+1) +'-'+mm+'-'+dd;
         let _date = document.getElementById('_date');
         let _time = document.getElementById('_time');
         let _from_station = document.getElementById('_from_station');
@@ -68,20 +174,37 @@
             event.preventDefault();
             if(_date.value.length > 0)
             {
-                if
-                (
-                (new Date(_date.value).getTime()/1000 - (new Date().getTime()/1000))
-                <= 0 ||
-                (new Date(_date.value).getTime()/1000 - (new Date().getTime()/1000))
-                >= 31536000
-                )
+                // if
+                // (
+                // (new Date(_date.value).getTime()/1000 - (new Date().getTime()/1000))
+                // <= 0 ||
+                // (new Date(_date.value).getTime()/1000 - (new Date().getTime()/1000))
+                // >= 31536000
+                // )
+
+                if(_date.value < today || _date.value > in_a_year)
                 {
                     _trains.innerHTML = '';
+                    $("#card-alert-date").removeAttr('hidden');
+                    $('#card-alert-station').attr("hidden", "true");
+                    $("#_information").attr("hidden", 'true');
                     _information.innerHTML = 'Information is available for trip within'
                     + ' now to a year from now. Please change date in that range.';
                     return;
                 }
-                _information.innerHTML = '';
+                else if(_from_station.value== _to_station.value){
+                    console.log("her")
+                    $('#card-alert-station').removeAttr('hidden');
+                    $('#card-alert-date').attr("hidden", "true");
+                    $("#_information").attr("hidden", 'true');
+                    _trains.innerHTML = '';
+                    return;
+                }
+                _information.innerHTML = 'Same station';
+                $("#_information").removeAttr('hidden');
+                $("#card-alert-date").attr("hidden", 'true');
+                $('#card-alert-station').attr("hidden", "true");
+                $("#card-alert-information").attr("hidden", 'true');
                 _trains.innerHTML = '';
                 axios.post
                 (
@@ -96,31 +219,53 @@
                 )
                 .then((response) =>
                 {
-                    console.log(response.data);
-                    let inner = '';
+                    let inner = 
+                                '<thead>'
+                                    +'<tr>'
+                                        +'<th>Train</th>'
+                                        +'<th>Arrival time</th>'
+                                        //+'<th>Departure time</th>'
+                                    +'</tr>'
+                                +'</thead>'
+                                +'<tbody>';
                     for(let i = 0; i < response.data.trains.length; ++i)
                     {
                         inner +=
-                            '<div class="train_info">'
-                                + '<b>Train: </b>'
-                                + response.data.trains[i].train_id
-                                + '<br><b>Arrival time: </b>'
-                                + response.data.trains[i].arrival_time
-                                +
-`
-<br>
-<form method='post' action='/make_reservation'>
-    <input type='hidden' value='${response.data.trains[i].train_id}' name='train_id'>
-    <input type='hidden' value='${response.data.trains[i].arrival_time}'
-        name='arrival_time'>
-    <input type='hidden' value='${response.data.trains[i].is_first_class_seats_free}'
-        name='is_first_class_seats_free'>
-    <button type='submit'>Make Reservation</button>
-</form>`
-                                +
-                            '</div>\n';
+                                '<tr class="train_info">'
+                                    +'<td>'+response.data.trains[i].train_id+'</td>'
+                                    +'<td>'+response.data.trains[i].arrival_time+'</td>'
+                                    //+'<td>'+response.data[i].departure_time+'</td>'
+                                    +`<td>
+                                        <form method='post' action='/make_reservation'>
+                                            <input type='hidden' value='${response.data.trains[i].train_id}' name='train_id'>
+                                            <input type='hidden' value='${response.data.trains[i].arrival_time}'
+                                                name='arrival_time'>
+                                            <input type='hidden' value='${response.data.trains[i].is_first_class_seats_free}'
+                                                name='is_first_class_seats_free'>`;
+
+                        if(_date.value == today && response.data.trains[i].arrival_time <= now){
+                            inner +=`<button class="waves-effect waves-light amber darken-2 btn disabled" type='submit'>Departed</button>
+                                        </form>
+                                    </td>`
+                                 +
+                                '</tr>\n';
+                        }else{
+                            inner +=`<button class="waves-effect waves-light amber darken-2 btn" type='submit'>&nbsp;&nbsp;&nbsp;&nbsp;Book&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                                        </form>
+                                    </td>`
+                                 +
+                                '</tr>\n';
+                        }
+                                            
+
                     }
+                    inner +=    
+                                '</tbody>';
                     _trains.innerHTML = inner;
+
+                    $("#card-alert-date").attr("hidden", 'true')
+                    $("#card-alert-information").attr("hidden", 'true')
+                    $("#_information").removeAttr('hidden');
                     _information.innerHTML = '<br><b>Base fare: </b>$'
                                               + response.data.base_fare + '<br>'
                                               + '<b>Distance: </b>'
@@ -134,8 +279,25 @@
             }
             else
             {
+                _trains.innerHTML = ''; 
                 _information.innerHTML = 'Please fill out all the information';
+                $("#card-alert-information").removeAttr('hidden');
+                $("#_information").attr("hidden", 'true');
             }
         });
+
+        $(document).ready(function() {
+            $('select').material_select();
+            if(!$('#_date').val())
+                $('#_date').attr("value",today);
+            $('#_date').attr("min",today);
+            $('#_date').attr("max",in_a_year);
+            $( "#_submit" ).click();
+        });
+
+
+        function myCick(){
+            $( "#_submit" ).click();
+        }
     </script>
 </body>
