@@ -23,12 +23,20 @@
 </head>
 <body>
     <? if(locals.info) { ?>
-        <?= info ?>
+        <div class="section"></div>
+        <div class="section"></div>
+        <div class="section"></div>
+        <div class="section"></div>
+        <div class="container">
+            <div class="row">
+                <div class="card-panel center card green lighten-5" >
+                    <h3 class="card-title">Reservation Successful</h3>
+                    <h5 class="center"><?= info ?><h5>
+                    <hr>
+                    <a href="/"class="waves-effect waves-light amber darken-2 btn">OK</a>
+                </div>
+            </div>
+        </div>
+        
     <? } ?>
-    <br>
-    <br>
-    <b>Links</b>
-    <br>
-    <a href='/'>Make a new reservation</a><br>
-    <a href='/review_reservation'>Review a reservation</a>
 </body>
