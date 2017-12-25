@@ -1,7 +1,25 @@
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
-    <title>Cancellation Inforamtion</title>
+    <title>Cancel Reservation</title>
+    <script src='axios.min.js'></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <style>
+        .nav-wrapper{
+            background-color: #4682B4;
+        }
+    </style>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="/" class="brand-logo">USTrain</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="/review_reservation">My Reservations</a></li>
+            </ul>
+        </div>
+    </nav>
 </head>
 <body>
     <? if(locals.info) { ?>
