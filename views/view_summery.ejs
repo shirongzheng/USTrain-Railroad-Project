@@ -3,27 +3,67 @@
     <meta charset="UTF-8">
     <title>View Summery</title>
     <script src='axios.min.js'></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <style>
+/*        .train_info
+        {
+            border-left: 0.1em solid #ddd;
+            padding: 1%;
+        }*/
+        .nav-wrapper{
+            background-color: #4682B4;
+        }
+    </style>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="/" class="brand-logo">&nbsp;&nbsp;USTrain</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="/review_reservation">My Reservations</a></li>
+            </ul>
+        </div>
+    </nav>
 </head>
 <body>
-<b>Train: </b><?= train_id ?><br>
-<b>Date: </b><?= date ?><br>
-<b>Start Station: </b><?= from_station_name ?><br>
-<b>End Station: </b><?= to_station_name ?><br>
-<b>Arrival Time: </b><?= arrival_time ?><br>
-<b>Distance: </b><?= distance ?> miles<br>
-<b>First class seat ? </b><?= is_first_class === 'on' ? 'Yes' : 'No' ?><br>
-<b>Bringing pet ? </b><?= is_bringing_pet === 'on' ? 'Yes' : 'No' ?><br>
-<b>Ticket for: </b><?= passenger_type ?><br>
-<b>Payment Method: </b>
-<? if(payment_type === '1') { ?>Station payment counter<? } ?>
-<? if(payment_type === '2') { ?>Money Order via mail<? } ?>
-<? if(payment_type === '3') { ?>Bank check via mail<? } ?>
-<br>
-<b>Your Passanger ID: </b><?= user_id ?><br>
-<b>Total price: </b>$<?= price ?>
-<br>
-<br>
-<form action='/checkout' method='post'>
-    <button type='submit'>Confirm Booking</button>
-</form>
+    <div class="section"></div>
+    <div class="section"></div>
+    <div class="section"></div>
+    <div class="section"></div>
+	   <div class="container centerPage">
+            <div class="row ">
+                <div class="col s6 offset-s3 " >
+                    <div class="card-panel card" >
+    		            <h3 class="card-title">Reservation Summary</h3>
+    		            <hr>
+                	<div>
+		                <b>Train: </b><?= train_id ?><br>
+						<b>Date: </b><?= date ?><br>
+						<b>Start Station: </b><?= from_station_name ?><br>
+						<b>End Station: </b><?= to_station_name ?><br>
+						<b>Arrival Time: </b><?= arrival_time ?><br>
+						<b>Distance: </b><?= distance ?> miles<br>
+						<b>First class seat ? </b><?= is_first_class === 'on' ? 'Yes' : 'No' ?><br>
+						<b>Bringing pet ? </b><?= is_bringing_pet === 'on' ? 'Yes' : 'No' ?><br>
+						<b>Ticket for: </b><?= passenger_type ?><br>
+						<b>Payment Method: </b>
+						<? if(payment_type === '1') { ?>Station payment counter<? } ?>
+						<? if(payment_type === '2') { ?>Money Order via mail<? } ?>
+						<? if(payment_type === '3') { ?>Bank check via mail<? } ?>
+						<br>
+						<b>Your Passanger ID: </b><?= user_id ?><br>
+						<b>Total price: </b>$<?= price ?>
+                    </div>
+                    <center>
+	                    <label> Please keep this information for future reference.</label>
+	                    <hr>
+						<form action='/checkout' method='post'>
+						    <button class="waves-effect waves-light amber darken-2 btn" type='submit'>Confirm Booking</button>
+						</form>                    	
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
