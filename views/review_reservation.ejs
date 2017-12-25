@@ -1,48 +1,110 @@
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
-    <title>View Reservation</title>
+    <title>Review Reservation</title>
+    <script src='axios.min.js'></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <style>
+        .nav-wrapper{
+            background-color: #4682B4;
+        }
+    </style>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="/" class="brand-logo">USTrain</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="/review_reservation">My Reservations</a></li>
+            </ul>
+        </div>
+    </nav>
 </head>
 <body>
-    <form action='/review_reservation' method='post'>
-        Ticket/Trip ID:
-        <input
-            name='trip_id'
-            type='number'
-            step='1'
-            min='0'
-            required><br>
-        <br>
-        <button
-            type='submit'>View Reservation</button>
-    </form>
-    <hr>
-<? if(locals.error) { ?>
-    <p style='color: red'><?= error ?></p>
-<? } else if
-(
-    locals.name !== undefined &&
-    locals.address !== undefined &&
-    locals.phone !== undefined &&
-    locals.reservation_on_date !== undefined &&
-    locals.trip_on_date !== undefined &&
-    locals.start_station_name !== undefined &&
-    locals.arrival_time !== undefined &&
-    locals.end_station_name !== undefined &&
-    locals.final_departure_time !== undefined
-) { ?>
-    Passenger name: <?= name ?><br>
-    Address: <?= address ?><br>
-    Phone: <?= phone ?><br>
-    Reservation date: <?= reservation_on_date ?><br>
-    Trip Date: <?= trip_on_date ?><br>
-    Start Station Name: <?= start_station_name ?><br>
-    Initial arrival time: <?= arrival_time ?><br>
-    End Station Name: <?= end_station_name ?><br>
-    Final departure time: <?= final_departure_time ?><br>
-    <br>
-    <form action='/cancel' method='post'>
-        <button id ='cancel' type='submit'>Cancel this reservation</button>
-    </form>
-<? } ?>
+    <div class="section"></div>
+    <div class="section"></div>
+    <div class="section"></div>
+    <div class="section"></div>
+     <div class="container centerPage">
+        <div class="row ">
+            <div class="col s6 offset-s3 " >
+                <div class="card-panel card" >
+                    <h4 class="card-title center">Reservation Look Up</h4>
+
+                    <hr>
+                    <div>
+                        <div class="section"></div>
+                        <form action='/review_reservation' method='post'>
+                            <div class="center">
+                                <div class="input-field inline ">
+                                    <input id="trip_id" type="number" name="trip_id" step='1' min='0'class="validate" required>
+                                    <label for="trip_id">Ticket/Trip ID:</label>
+                                </div>
+                            </div>
+                            <div class="section"></div>
+                            <br>
+                            <div class="center">
+                                <button class="waves-effect waves-light amber darken-2 btn" type='submit'>
+                                    View Reservation
+                                </button> 
+                            </div>
+                            <br>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <? if(locals.error) { ?> 
+        <div class="container" >
+            <div id="card-alert-station" class="card red lighten-5">
+                <div class="card-content red-text">
+                    <p><center><?= error ?></center></p>
+                </div>
+            </div>
+        </div>
+    <? } 
+    else if(
+        locals.name !== undefined &&
+        locals.address !== undefined &&
+        locals.phone !== undefined &&
+        locals.reservation_on_date !== undefined &&
+        locals.trip_on_date !== undefined &&
+        locals.start_station_name !== undefined &&
+        locals.arrival_time !== undefined &&
+        locals.end_station_name !== undefined &&
+        locals.final_departure_time !== undefined){ ?>
+            <div class="container centerPage">
+                <div class="row ">
+                    <div class="col s6 offset-s3 " >
+                        <div class="card-panel card" >
+                            <h3 class="card-title">Reservation Summary</h3>
+                            <hr>
+
+                            <div>
+                                <b>Passenger name:</b> <?= name ?><br>
+                                <b>Address:</b> <?= address ?><br>
+                                <b>Phone:</b> <?= phone ?><br>
+                                <b>Reservation date:</b> <?= reservation_on_date.toString().substring(0,15) ?><br>
+                                <b>Trip Date:</b> <?= trip_on_date.toString().substring(0,15) ?><br>
+                                <b>Start Station Name:</b> <?= start_station_name ?><br>
+                                <b>Initial arrival time:</b> <?= arrival_time ?><br>
+                                <b>End Station Name:</b> <?= end_station_name ?><br>
+                                <b>Final departure time:</b> <?= final_departure_time ?><br>
+                            </div>
+                            <hr>
+                            <div class="section"></div>
+                            <center>
+                                <form action='/cancel' method='post'>
+                                    <button class="waves-effect waves-light red darken-2 btn" id ='cancel' type='submit'>Cancel this reservation</button>
+                                </form>          
+                            </center>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+        <? }?>
 </body>
