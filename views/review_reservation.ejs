@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>View Reservation</title>
+</head>
+<body>
+    <form action='/review_reservation' method='post'>
+        Ticket/Trip ID:
+        <input
+            name='trip_id'
+            type='number'
+            step='1'
+            min='0'
+            required><br>
+        <br>
+        <button
+            type='submit'>View Reservation</button>
+    </form>
+    <hr>
+<? if(locals.error) { ?>
+    <p style='color: red'><?= error ?></p>
+<? } else if
+(
+    locals.name !== undefined &&
+    locals.address !== undefined &&
+    locals.phone !== undefined &&
+    locals.reservation_on_date !== undefined &&
+    locals.trip_on_date !== undefined &&
+    locals.start_station_name !== undefined &&
+    locals.arrival_time !== undefined &&
+    locals.end_station_name !== undefined &&
+    locals.final_departure_time !== undefined
+) { ?>
+    Passenger name: <?= name ?><br>
+    Address: <?= address ?><br>
+    Phone: <?= phone ?><br>
+    Reservation date: <?= reservation_on_date ?><br>
+    Trip Date: <?= trip_on_date ?><br>
+    Start Station Name: <?= start_station_name ?><br>
+    Initial arrival time: <?= arrival_time ?><br>
+    End Station Name: <?= end_station_name ?><br>
+    Final departure time: <?= final_departure_time ?><br>
+    <br>
+    <form action='/cancel' method='post'>
+        <button id ='cancel' type='submit'>Cancel this reservation</button>
+    </form>
+<? } ?>
+</body>
