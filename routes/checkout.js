@@ -103,7 +103,6 @@ router.post('/checkout', (req, res) =>
         })
         .then((result) =>
         {
-            // TODO ensure seats free doesn't become negative elsewhere
             let update_seats_free_p = [];
             for(let i = 0; i < result.length; ++i)
             {

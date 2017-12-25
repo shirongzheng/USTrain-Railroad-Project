@@ -1,8 +1,28 @@
 let router = require('express').Router();
 let db = require('../database/connect');
+let validator = require('validator');
 
 router.post('/availability_data', (req, res) =>
 {
+    if
+    (
+        typeof req.body.from_station === 'string' &&
+        typeof req.body.to_station === 'string' &&
+        validator.isNumeric(req.body.from_station) &&
+        validator.isNumeric(req.body.to_station) &&
+        (
+            req.body.time === 'morning' ||
+            req.body.time === 'afternoon' ||
+            req.body.time === 'evening' ||
+            req.body.time === 'any'
+        ) &&
+        req.body.from_station !== req.body.to_station
+    ){ /* */}
+    else
+    {
+        return res.status(400).send('Invalid Input');
+    }
+
     let at = new Date(req.body.date).getDay();
     let schedule = '';
     for(let i = 0; i <= 6; ++i)
